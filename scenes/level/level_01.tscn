@@ -1,0 +1,128 @@
+[gd_scene load_steps=8 format=3 uid="uid://level001"]
+
+[ext_resource type="PackedScene" uid="uid://patrol001" path="res://scenes/enemies/patrol_enemy.tscn" id="1_patrol"]
+[ext_resource type="PackedScene" uid="uid://chase001" path="res://scenes/enemies/chase_enemy.tscn" id="2_chase"]
+[ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="3_portal"]
+[ext_resource type="PackedScene" uid="uid://level002" path="res://scenes/level/level_02.tscn" id="4_level02"]
+[ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="5_platform"]
+[ext_resource type="PackedScene" uid="uid://bl73rv4wein64" path="res://scenes/platform/moving_platform.tscn" id="6_us4u7"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3gack"]
+
+[node name="Level01" type="Node2D"]
+material = SubResource("CanvasItemMaterial_3gack")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 38.0
+offset_top = -755.0
+offset_right = 1269.0
+offset_bottom = 694.0
+color = Color(0, 0, 0, 1)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(309, 662)
+
+[node name="Floor" parent="." instance=ExtResource("5_platform")]
+position = Vector2(649.5, 700)
+platform_size = Vector2(1299, 40)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="Ceiling" parent="." instance=ExtResource("5_platform")]
+position = Vector2(649.5, -773)
+platform_size = Vector2(1299, 40)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="Platform6" parent="." instance=ExtResource("5_platform")]
+position = Vector2(511, 642)
+platform_size = Vector2(200, 20)
+
+[node name="Platform20" parent="." instance=ExtResource("5_platform")]
+position = Vector2(141, 642)
+platform_size = Vector2(200, 20)
+
+[node name="Platform1" parent="." instance=ExtResource("5_platform")]
+position = Vector2(300, 550)
+platform_size = Vector2(200, 20)
+
+[node name="Platform5" parent="." instance=ExtResource("5_platform")]
+position = Vector2(266, 156)
+
+[node name="Platform7" parent="." instance=ExtResource("5_platform")]
+position = Vector2(434, 216)
+
+[node name="Platform2" parent="." instance=ExtResource("5_platform")]
+position = Vector2(620, 479)
+
+[node name="Platform8" parent="." instance=ExtResource("5_platform")]
+position = Vector2(163, 80)
+
+[node name="Platform9" parent="." instance=ExtResource("5_platform")]
+position = Vector2(305, 10)
+
+[node name="Platform10" parent="." instance=ExtResource("5_platform")]
+position = Vector2(453, -61)
+
+[node name="Platform11" parent="." instance=ExtResource("5_platform")]
+position = Vector2(619, -128)
+
+[node name="Platform12" parent="." instance=ExtResource("5_platform")]
+position = Vector2(769, -201)
+
+[node name="Platform13" parent="." instance=ExtResource("5_platform")]
+position = Vector2(934, -276)
+
+[node name="Platform14" parent="." instance=ExtResource("5_platform")]
+position = Vector2(1095, -342)
+
+[node name="Platform15" parent="." instance=ExtResource("5_platform")]
+position = Vector2(945, -414)
+
+[node name="Platform16" parent="." instance=ExtResource("5_platform")]
+position = Vector2(788, -478)
+
+[node name="Platform17" parent="." instance=ExtResource("5_platform")]
+position = Vector2(625, -531)
+
+[node name="Platform18" parent="." instance=ExtResource("5_platform")]
+position = Vector2(460, -469)
+
+[node name="Platform19" parent="." instance=ExtResource("5_platform")]
+position = Vector2(239, -641)
+
+[node name="Platform4" parent="." instance=ExtResource("5_platform")]
+position = Vector2(606, 305)
+platform_size = Vector2(240, 20)
+
+[node name="Platform3" parent="." instance=ExtResource("5_platform")]
+position = Vector2(836, 403)
+platform_size = Vector2(240, 20)
+
+[node name="WallLeft" parent="." instance=ExtResource("5_platform")]
+position = Vector2(20, -36)
+platform_size = Vector2(40, 1512)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="WallRight" parent="." instance=ExtResource("5_platform")]
+position = Vector2(1279, -36)
+platform_size = Vector2(40, 1512)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="PatrolEnemy1" parent="." instance=ExtResource("1_patrol")]
+position = Vector2(461, 268)
+
+[node name="PatrolEnemy2" parent="." instance=ExtResource("1_patrol")]
+position = Vector2(833, 250)
+
+[node name="ChaseEnemy1" parent="." instance=ExtResource("2_chase")]
+position = Vector2(607, 337)
+detection_radius = 100.0
+
+[node name="Portal" parent="." instance=ExtResource("3_portal")]
+position = Vector2(177, -675)
+next_level = ExtResource("4_level02")
+
+[node name="MovingPlatform" parent="." instance=ExtResource("6_us4u7")]
+position = Vector2(427, -584)
+move_offset = Vector2(400, 0)
+move_speed = 600.0
+move_mode = 1

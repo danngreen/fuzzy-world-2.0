@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://chase001"]
+
+[ext_resource type="Script" uid="uid://dal26y28wltq0" path="res://scenes/enemies/chase_enemy.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
+size = Vector2(24, 24)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sprite"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 191.167
+
+[node name="ChaseEnemy" type="CharacterBody2D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_col")
+
+[node name="Sprite" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_sprite")
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+pivot_offset = Vector2(12, 0)
+color = Color(0.609378, 0.501928, 0.0156048, 1)
+
+[node name="visor" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_sprite")
+offset_left = -12.0
+offset_top = -10.0
+offset_right = 12.0
+offset_bottom = -6.0
+pivot_offset = Vector2(12, 0)
+color = Color(0.140861, 0.0550397, 0, 1)
+
+[node name="eye" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_sprite")
+offset_left = -2.0
+offset_top = -10.0
+offset_right = 2.0
+offset_bottom = -6.0
+pivot_offset = Vector2(12, 0)
+color = Color(1, 0.00999999, 0.00999999, 1)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_detect")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

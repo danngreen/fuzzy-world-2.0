@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://patrol001"]
+
+[ext_resource type="Script" uid="uid://c4ohoadqx8uog" path="res://scenes/enemies/patrol_enemy.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
+size = Vector2(16, 24)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sprite"]
+
+[node name="PatrolEnemy" type="CharacterBody2D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_col")
+
+[node name="Sprite" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_sprite")
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 9.0
+offset_bottom = 12.0
+pivot_offset = Vector2(12, 0)
+color = Color(0.433019, 0.161173, 0.999991, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_top = -10.0
+offset_right = 9.0
+offset_bottom = -7.0
+color = Color(0.191601, 0.665594, 0.757194, 1)
+
+[node name="EdgeDetector" type="RayCast2D" parent="."]
+position = Vector2(0, 12)
+target_position = Vector2(16, 20)

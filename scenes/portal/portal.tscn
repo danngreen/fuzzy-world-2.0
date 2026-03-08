@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://portal001"]
+
+[ext_resource type="Script" uid="uid://8866ktx70j38" path="res://scenes/portal/portal.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_trigger"]
+size = Vector2(16, 48)
+
+[node name="Portal" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_trigger")
+
+[node name="Visual" type="ColorRect" parent="."]
+offset_left = -18.0
+offset_top = -24.0
+offset_right = 18.0
+offset_bottom = 24.0
+color = Color(0.301961, 0.0941176, 0.709804, 1)
+
+[node name="Visual2" type="ColorRect" parent="."]
+offset_left = -14.0
+offset_top = -20.0
+offset_right = 14.0
+offset_bottom = 20.0
+color = Color(0.101273, 0.0865615, 0.0863954, 1)

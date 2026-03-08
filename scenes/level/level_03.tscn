@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://0xeui2ohwqcf"]
+
+[ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="1_2u4e0"]
+[ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="4_nt61i"]
+
+[node name="Level02" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 14.0
+offset_top = -468.0
+offset_right = 1274.0
+offset_bottom = 677.0
+color = Color(0, 0, 0, 1)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(400, 636)
+
+[node name="Floor" parent="." instance=ExtResource("1_2u4e0")]
+position = Vector2(641, 680)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.3, 0.15, 0.1, 1)
+
+[node name="Ceiling" parent="." instance=ExtResource("1_2u4e0")]
+position = Vector2(641, -480)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.3, 0.15, 0.1, 1)
+
+[node name="WallLeft" parent="." instance=ExtResource("1_2u4e0")]
+position = Vector2(0, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.3, 0.15, 0.1, 1)
+
+[node name="WallRight" parent="." instance=ExtResource("1_2u4e0")]
+position = Vector2(1280, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.3, 0.15, 0.1, 1)
+
+[node name="Portal" parent="." instance=ExtResource("4_nt61i")]
+position = Vector2(638, -227)
