@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://sentry001"]
+
+[ext_resource type="Script" uid="uid://d0ixrq36l7lu7" path="res://scenes/enemies/sentry.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
+size = Vector2(20, 28)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_sprite"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+radius = 250.0
+
+[node name="Sentry" type="CharacterBody2D"]
+velocity = Vector2(-40, 900)
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_col")
+
+[node name="Sprite" type="ColorRect" parent="."]
+material = SubResource("CanvasItemMaterial_sprite")
+offset_left = -10.0
+offset_top = -14.0
+offset_right = 10.0
+offset_bottom = 14.0
+scale = Vector2(-1, 1)
+pivot_offset = Vector2(10, 0)
+color = Color(0.1, 0.35, 0.35, 1)
+
+[node name="AlertLight" type="ColorRect" parent="."]
+visible = false
+offset_left = -3.0
+offset_top = -18.0
+offset_right = 3.0
+offset_bottom = -14.0
+color = Color(1, 0, 0, 1)
+
+[node name="EdgeDetector" type="RayCast2D" parent="."]
+position = Vector2(0, 14)
+target_position = Vector2(-16, 20)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_detect")
+debug_color = Color(0, 0.595, 0.7, 0.0235294)
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
