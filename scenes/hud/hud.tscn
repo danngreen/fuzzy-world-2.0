@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://hud001"]
 
-[ext_resource type="Script" uid="uid://hud_script01" path="res://scenes/hud/hud.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://dl4kw4mdhnkse" path="res://scenes/hud/hud.gd" id="1_script"]
 
 [node name="HUD" type="CanvasLayer"]
 layer = 10
@@ -15,20 +15,32 @@ theme_override_constants/separation = 8
 
 [node name="Heart1" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
 color = Color(0.9, 0.1, 0.1, 1)
 
 [node name="Heart2" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
 color = Color(0.9, 0.1, 0.1, 1)
 
 [node name="Heart3" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
 color = Color(0.9, 0.1, 0.1, 1)
 
 [node name="Heart4" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
 color = Color(0.9, 0.1, 0.1, 1)
 
 [node name="Heart5" type="ColorRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
 color = Color(0.9, 0.1, 0.1, 1)
+
+[node name="LivesContainer" type="HBoxContainer" parent="."]
+offset_left = 16.0
+offset_top = 52.0
+offset_right = 216.0
+offset_bottom = 72.0
+theme_override_constants/separation = 8

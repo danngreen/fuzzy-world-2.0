@@ -33,3 +33,9 @@ func change_level(level_scene: PackedScene) -> void:
 	player.set_z_index(RenderingServer.CANVAS_ITEM_Z_MAX)
 	player.velocity = Vector2.ZERO
 	player.spawn_position = player.global_position
+
+
+func game_over() -> void:
+	var player = $Player
+	player._update_hud()
+	change_level(start_level)

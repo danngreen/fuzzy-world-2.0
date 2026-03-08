@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 # Movement
 const SPEED = 300.0
-const ACCELERATION = 1800.0
+const ACCELERATION : float = 1800.0
 const FRICTION = 2400.0
 
 # Jumping
@@ -19,25 +19,51 @@ const MAX_FALL_SPEED = 900.0
 const MAX_HEALTH = 5
 const INVINCIBILITY_DURATION = 1.0
 
+# Lives
+const MAX_LIVES = 3
+
+# Size changing
+const BASE_COLLISION_SIZE := Vector2(28, 48)
+const MIN_SIZE_SCALE := 0.5
+const MAX_SIZE_SCALE := 2.0
+const SIZE_STEP := 0.5
+
+# Per-size tweaks: size_scale -> [mass_ratio_from_1, accel_multiplier]
+# mass_ratio is relative to size 1.0; accel_multiplier scales ACCELERATION
+const SIZE_PARAMS := {
+	0.5: { "mass": 0.80, "accel": 2.0 },
+	1.0: { "mass": 0.90, "accel": 0.85 },
+	1.5: { "mass": 1.5, "accel": 0.45 },
+	2.0: { "mass": 2.3, "accel": 0.25 },
+}
+
 var coyote_timer: float = 0.0
 var jump_buffer_timer: float = 0.0
 var was_on_floor: bool = false
 
-var health: int = MAX_HEALTH
+var health: float = MAX_HEALTH
 var invincible: bool = false
 var invincibility_timer: float = 0.0
 var flash_timer: float = 0.0
 var spawn_position: Vector2
 
+var lives: int = MAX_LIVES
+var respawning := false
+
 var hat_y: float
+var size_scale := 1.0
 
 
 func _ready() -> void:
 	add_to_group("player")
 	spawn_position = global_position
+	$CollisionShape2D.shape = $CollisionShape2D.shape.duplicate()
 
 
 func _physics_process(delta: float) -> void:
+	if respawning:
+		return
+
 	# Invincibility frames
 	if invincible:
 		invincibility_timer -= delta
@@ -71,7 +97,7 @@ func _physics_process(delta: float) -> void:
 	if jump_buffer_timer > 0:
 		jump_buffer_timer -= delta
 
-	# Jump
+	# Jump — scales slightly with size
 	if jump_buffer_timer > 0 and coyote_timer > 0:
 		velocity.y = JUMP_VELOCITY
 		coyote_timer = 0.0
@@ -81,15 +107,22 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER
 
+	# Size changing
+	if Input.is_action_just_pressed("size_up"):
+		_change_size(size_scale + SIZE_STEP)
+	if Input.is_action_just_pressed("size_down"):
+		_change_size(size_scale - SIZE_STEP)
+
 	# Horizontal movement
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
-		velocity.x = move_toward(velocity.x, direction * SPEED, ACCELERATION * delta)
+		var accel : float = ACCELERATION * SIZE_PARAMS[size_scale]["accel"]
+		velocity.x = move_toward(velocity.x, direction * SPEED, accel * delta)
 		# Hat animation:
 		hat_y += 0.05
 		if hat_y >= 1:
 			hat_y = 0
-			# Convert 0..0.5 => -15..-10, and 0.5..1 => -10..-15 
+			# Convert 0..0.5 => -15..-10, and 0.5..1 => -10..-15
 		$Sprite/ColorRect.position.y = (10 * hat_y - 15) if (hat_y < 0.5) else (-5*(hat_y-0.5) - 10)
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
@@ -112,12 +145,44 @@ func _physics_process(delta: float) -> void:
 			break
 
 
+func _change_size(new_scale: float) -> void:
+	new_scale = clampf(new_scale, MIN_SIZE_SCALE, MAX_SIZE_SCALE)
+	if is_equal_approx(new_scale, size_scale):
+		return
+
+	var old_scale := size_scale
+	size_scale = new_scale
+
+	# Momentum conservation: v_new = v_old * (old_mass / new_mass)
+	var old_mass: float = SIZE_PARAMS[old_scale]["mass"]
+	var new_mass: float = SIZE_PARAMS[size_scale]["mass"]
+	velocity *= old_mass / new_mass
+
+	# Keep feet grounded: adjust position so collision bottom stays at same Y
+	position.y -= (size_scale - old_scale) * BASE_COLLISION_SIZE.y / 2.0
+
+	# Update collision shape
+	$CollisionShape2D.shape.size = BASE_COLLISION_SIZE * size_scale
+
+	# Update sprite scale (preserve facing direction)
+	var facing := signf($Sprite.scale.x) if $Sprite.scale.x != 0.0 else 1.0
+	$Sprite.scale = Vector2(facing * size_scale, size_scale)
+
+
+func _reset_size() -> void:
+	size_scale = 1.0
+	$CollisionShape2D.shape.size = BASE_COLLISION_SIZE
+	var facing := signf($Sprite.scale.x) if $Sprite.scale.x != 0.0 else 1.0
+	$Sprite.scale = Vector2(facing, 1.0)
+
+
 func take_damage() -> void:
 	if invincible:
 		return
-	health -= 1
+	var damage := 2.5 - size_scale
+	health -= damage
 	_update_hud()
-	if health <= 0:
+	if health <= 0.0:
 		die()
 		return
 	invincible = true
@@ -126,16 +191,76 @@ func take_damage() -> void:
 
 
 func die() -> void:
+	lives -= 1
+	_update_hud()
+
+	if lives <= 0:
+		_game_over()
+		return
+
+	# Respawn with hat animation
 	health = MAX_HEALTH
 	_update_hud()
-	global_position = spawn_position
+	_reset_size()
 	velocity = Vector2.ZERO
+	_start_respawn()
+
+
+func _start_respawn() -> void:
+	respawning = true
+	$CollisionShape2D.disabled = true
+	$Sprite.visible = true
+	$Sprite/ColorRect.visible = false
+	global_position = Vector2(spawn_position.x, spawn_position.y - 250)
+
+	# Pivot at bottom of hat brim (Sprite rect coords) so body grows downward from hat
+	$Sprite.pivot_offset = Vector2(14, -9)
+	$Sprite.scale = Vector2(1, 0.01)
+
+	# Standalone hat at the Sprite hat's full-scale position
+	var hat = Node2D.new()
+	hat.name = "RespawnHat"
+	var top = ColorRect.new()
+	top.offset_left = -9; top.offset_top = -40
+	top.offset_right = 7; top.offset_bottom = -35
+	hat.add_child(top)
+	var brim = ColorRect.new()
+	brim.offset_left = -9; brim.offset_top = -35
+	brim.offset_right = 9; brim.offset_bottom = -33
+	hat.add_child(brim)
+	add_child(hat)
+
+	var tween = create_tween()
+	tween.tween_interval(0.8)
+	tween.tween_property($Sprite, "scale:y", 1.0, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_callback(func():
+		hat.queue_free()
+		$Sprite/ColorRect.visible = true
+		_finish_respawn()
+	)
+
+
+func _finish_respawn() -> void:
+	$Sprite.pivot_offset = Vector2(14, 24)
+	$CollisionShape2D.disabled = false
+	respawning = false
 	invincible = true
 	invincibility_timer = INVINCIBILITY_DURATION
 	flash_timer = 0.0
+
+
+func _game_over() -> void:
+	lives = MAX_LIVES
+	health = MAX_HEALTH
+	_reset_size()
+	velocity = Vector2.ZERO
+	var manager = get_tree().get_first_node_in_group("game_manager")
+	if manager:
+		manager.game_over()
 
 
 func _update_hud() -> void:
 	var hud = get_node_or_null("/root/Main/HUD")
 	if hud:
 		hud.update_hearts(health)
+		hud.update_lives(lives)
