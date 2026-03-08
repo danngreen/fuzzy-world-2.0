@@ -1,6 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://player001"]
+[gd_scene load_steps=7 format=3 uid="uid://player001"]
 
 [ext_resource type="Script" uid="uid://cwoxcklog5016" path="res://scenes/player/player.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://cotwrvq61bq1p" path="res://assets/sfx/MedJump.wav" id="2_dovo2"]
+[ext_resource type="AudioStream" uid="uid://dwxme4uepx234" path="res://assets/sfx/SmallJump.wav" id="2_gmlin"]
+[ext_resource type="AudioStream" uid="uid://bmjnvlgssjf5x" path="res://assets/sfx/LargeJump.wav" id="4_p47bc"]
+[ext_resource type="AudioStream" uid="uid://bm3lkof54lwch" path="res://assets/sfx/XLJump.wav" id="5_75vfm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
 size = Vector2(28, 48)
@@ -33,3 +37,19 @@ offset_bottom = -9.0
 layout_mode = 0
 offset_top = -5.0
 offset_right = 16.0
+
+[node name="SFX" type="Node" parent="."]
+
+[node name="Jump" type="Node" parent="SFX"]
+
+[node name="Small" type="AudioStreamPlayer" parent="SFX/Jump"]
+stream = ExtResource("2_gmlin")
+
+[node name="Med" type="AudioStreamPlayer" parent="SFX/Jump"]
+stream = ExtResource("2_dovo2")
+
+[node name="Large" type="AudioStreamPlayer" parent="SFX/Jump"]
+stream = ExtResource("4_p47bc")
+
+[node name="XL" type="AudioStreamPlayer" parent="SFX/Jump"]
+stream = ExtResource("5_75vfm")

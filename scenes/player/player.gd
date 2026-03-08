@@ -52,6 +52,7 @@ var respawning := false
 
 var hat_y: float
 var size_scale := 1.0
+var size_tween: Tween
 
 
 func _ready() -> void:
@@ -78,6 +79,12 @@ func _physics_process(delta: float) -> void:
 			$Sprite.visible = true
 			flash_timer = 0.0
 
+	# Size changing
+	if Input.is_action_just_pressed("size_up"):
+		_change_size(size_scale + SIZE_STEP)
+	if Input.is_action_just_pressed("size_down"):
+		_change_size(size_scale - SIZE_STEP)
+
 	# Gravity
 	if not is_on_floor():
 		velocity.y = minf(velocity.y + GRAVITY * delta, MAX_FALL_SPEED)
@@ -102,16 +109,11 @@ func _physics_process(delta: float) -> void:
 		velocity.y = JUMP_VELOCITY
 		coyote_timer = 0.0
 		jump_buffer_timer = 0.0
+		_play_sound_jump()
 
 	# Variable jump height - release early to jump shorter
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_CUT_MULTIPLIER
-
-	# Size changing
-	if Input.is_action_just_pressed("size_up"):
-		_change_size(size_scale + SIZE_STEP)
-	if Input.is_action_just_pressed("size_down"):
-		_change_size(size_scale - SIZE_STEP)
 
 	# Horizontal movement
 	var direction := Input.get_axis("move_left", "move_right")
@@ -139,10 +141,20 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		if collider.is_in_group("enemies"):
-			# Normal points away from collider — if it points up, enemy is on top
-			if collision.get_normal().y > 0.5 and collider is CharacterBody2D:
-				collider.velocity.y = -400.0
-			take_damage()
+			var away_dir = sign(global_position.x - collider.global_position.x)
+			if away_dir == 0:
+				away_dir = 1.0
+			# XL player stomps drones from above — crash drone, no damage
+			if size_scale == 2.0 and collision.get_normal().y < -0.5 and collider.is_in_group("drone_guards"):
+				collider.crash()
+			elif collider.is_in_group("drone_guards"):
+				# Drone guards knock the drone back, not the player
+				collider.velocity = Vector2(-away_dir * 300.0, -200.0)
+				take_damage()
+			else:
+				# Normal enemies knock the player back
+				velocity = Vector2(away_dir * 300.0, -200.0)
+				take_damage()
 			break
 
 
@@ -162,12 +174,18 @@ func _change_size(new_scale: float) -> void:
 	# Keep feet grounded: adjust position so collision bottom stays at same Y
 	position.y -= (size_scale - old_scale) * BASE_COLLISION_SIZE.y / 2.0
 
-	# Update collision shape
+	# Update collision shape immediately (physics needs it)
 	$CollisionShape2D.shape.size = BASE_COLLISION_SIZE * size_scale
 
-	# Update sprite scale (preserve facing direction)
-	var facing := signf($Sprite.scale.x) if $Sprite.scale.x != 0.0 else 1.0
-	$Sprite.scale = Vector2(facing * size_scale, size_scale)
+	# Animate sprite scale from current visual size to target
+	if size_tween and size_tween.is_valid():
+		size_tween.kill()
+	var visual_start := absf($Sprite.scale.y)
+	size_tween = create_tween()
+	size_tween.tween_method(func(t: float):
+		var f := signf($Sprite.scale.x) if $Sprite.scale.x != 0.0 else 1.0
+		$Sprite.scale = Vector2(f * t, t)
+	, visual_start, size_scale, 0.15)
 
 
 func _reset_size() -> void:
@@ -265,3 +283,13 @@ func _update_hud() -> void:
 	if hud:
 		hud.update_hearts(health)
 		hud.update_lives(lives)
+
+func _play_sound_jump() -> void:
+	if size_scale == 0.5:
+		$SFX/Jump/Small.play()
+	elif size_scale == 1:
+		$SFX/Jump/Med.play()
+	elif size_scale == 1.5:
+		$SFX/Jump/Large.play()
+	elif size_scale == 2:
+		$SFX/Jump/XL.play()
