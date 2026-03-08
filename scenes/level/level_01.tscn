@@ -115,7 +115,7 @@ position = Vector2(833, 250)
 
 [node name="ChaseEnemy1" parent="." instance=ExtResource("2_chase")]
 position = Vector2(607, 337)
-detection_radius = 100.0
+detection_radius = 130.0
 
 [node name="Portal" parent="." instance=ExtResource("3_portal")]
 position = Vector2(177, -675)

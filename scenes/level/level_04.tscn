@@ -1,0 +1,85 @@
+[gd_scene load_steps=4 format=3 uid="uid://0xeui2ohwqcf"]
+
+[ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="1_1e2li"]
+[ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="2_unacs"]
+[ext_resource type="PackedScene" uid="uid://bl73rv4wein64" path="res://scenes/platform/moving_platform.tscn" id="3_g0h51"]
+
+[node name="Level04" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 14.0
+offset_top = -468.0
+offset_right = 1274.0
+offset_bottom = 677.0
+color = Color(0, 0, 0, 1)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(73, 635)
+
+[node name="Floor" parent="." instance=ExtResource("1_1e2li")]
+position = Vector2(641, 680)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.4735, 0.128693, 0.631343, 1)
+
+[node name="Ceiling" parent="." instance=ExtResource("1_1e2li")]
+position = Vector2(641, -480)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.4735, 0.128693, 0.631343, 1)
+
+[node name="WallLeft" parent="." instance=ExtResource("1_1e2li")]
+position = Vector2(0, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.4735, 0.128693, 0.631343, 1)
+
+[node name="WallRight" parent="." instance=ExtResource("1_1e2li")]
+position = Vector2(1280, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.4735, 0.128693, 0.631343, 1)
+
+[node name="Portal" parent="." instance=ExtResource("2_unacs")]
+position = Vector2(638, -227)
+
+[node name="Platform" parent="." instance=ExtResource("1_1e2li")]
+position = Vector2(227, 612)
+
+[node name="MovingPlatform" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(405, 542)
+
+[node name="MovingPlatform2" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(214, 449)
+
+[node name="MovingPlatform3" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(417, 345)
+
+[node name="MovingPlatform4" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(579, 127)
+move_offset = Vector2(200, 50)
+
+[node name="MovingPlatform5" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(501, 35)
+
+[node name="MovingPlatform6" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(907, -32)
+
+[node name="MovingPlatform7" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(664, -151)
+
+[node name="MovingPlatform8" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(821, -151)
+move_offset = Vector2(0, 200)
+move_mode = 2
+
+[node name="MovingPlatform9" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(738, 41)
+
+[node name="MovingPlatform10" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(233, 29)
+
+[node name="MovingPlatform11" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(114, -25)
+
+[node name="MovingPlatform12" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(256, -91)
+
+[node name="MovingPlatform13" parent="." instance=ExtResource("3_g0h51")]
+position = Vector2(436, -134)
