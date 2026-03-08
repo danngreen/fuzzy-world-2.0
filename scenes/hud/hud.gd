@@ -42,14 +42,15 @@ func _create_life_icons() -> void:
 		var hat = Control.new()
 		hat.custom_minimum_size = Vector2(20, 14)
 
+		# Top is 16 x 5
 		var top = ColorRect.new()
-		top.offset_left = 2; top.offset_top = 0
-		top.offset_right = 16; top.offset_bottom = 8
+		top.offset_left = 0; top.offset_top = 0
+		top.offset_right = 16; top.offset_bottom = 5
 		hat.add_child(top)
-
+		# Brim is 18 x 2
 		var brim = ColorRect.new()
-		brim.offset_left = 0; brim.offset_top = 8
-		brim.offset_right = 20; brim.offset_bottom = 11
+		brim.offset_left = 0; brim.offset_top = top.offset_bottom
+		brim.offset_right = 18; brim.offset_bottom = brim.offset_top + 2
 		hat.add_child(brim)
 
 		$LivesContainer.add_child(hat)
