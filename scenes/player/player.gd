@@ -31,10 +31,10 @@ const SIZE_STEP := 0.5
 # Per-size tweaks: size_scale -> [mass_ratio_from_1, accel_multiplier]
 # mass_ratio is relative to size 1.0; accel_multiplier scales ACCELERATION
 const SIZE_PARAMS := {
-	0.5: { "mass": 0.80, "accel": 2.0 },
-	1.0: { "mass": 0.90, "accel": 0.85 },
-	1.5: { "mass": 1.5, "accel": 0.45 },
-	2.0: { "mass": 2.3, "accel": 0.25 },
+	0.5: { "mass": 0.80, "accel": 2.0, "speed": 1.5 },
+	1.0: { "mass": 0.90, "accel": 0.85, "speed": 1.0 },
+	1.5: { "mass": 1.5, "accel": 0.45, "speed": 0.85 },
+	2.0: { "mass": 2.3, "accel": 0.25, "speed": 0.7 },
 }
 
 var coyote_timer: float = 0.0
@@ -117,7 +117,8 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction:
 		var accel : float = ACCELERATION * SIZE_PARAMS[size_scale]["accel"]
-		velocity.x = move_toward(velocity.x, direction * SPEED, accel * delta)
+		var max_speed : float = SPEED * SIZE_PARAMS[size_scale]["speed"]
+		velocity.x = move_toward(velocity.x, direction * max_speed, accel * delta)
 		# Hat animation:
 		hat_y += 0.05
 		if hat_y >= 1:
