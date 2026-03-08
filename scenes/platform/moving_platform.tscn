@@ -19,7 +19,7 @@ offset_left = -80.0
 offset_top = -10.0
 offset_right = 80.0
 offset_bottom = 10.0
-color = Color(0.767283, 0.540932, 0.579113, 1)
+color = Color(0.4, 0.7, 0.3, 1)
 
 [node name="PlayerDetector" type="Area2D" parent="."]
 
