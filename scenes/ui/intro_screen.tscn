@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfb8x2m1r08"]
+
+[ext_resource type="Script" uid="uid://dfb8x2m1r09" path="res://scenes/ui/intro_screen.gd" id="1_script"]
+
+[node name="IntroScreen" type="CanvasLayer"]
+layer = 20
+process_mode = 3
+script = ExtResource("1_script")

@@ -1,15 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://main001"]
+[gd_scene load_steps=6 format=3 uid="uid://main001"]
 
 [ext_resource type="PackedScene" uid="uid://level001" path="res://scenes/level/level_01.tscn" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://player001" path="res://scenes/player/player.tscn" id="2_player"]
-[ext_resource type="PackedScene" uid="uid://bq7lbockm1piu" path="res://scenes/level/level_05.tscn" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://cjikjbc01xte6" path="res://scripts/camera.gd" id="3_camera"]
 [ext_resource type="PackedScene" uid="uid://hud001" path="res://scenes/hud/hud.tscn" id="4_hud"]
 [ext_resource type="Script" uid="uid://mc7rn1wvjnj4" path="res://scripts/main.gd" id="5_main"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("5_main")
-start_level = ExtResource("2_tefeu")
+start_level = ExtResource("1_level")
 
 [node name="Level" parent="." instance=ExtResource("1_level")]
 

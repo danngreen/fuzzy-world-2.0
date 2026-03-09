@@ -10,6 +10,13 @@ func _ready() -> void:
 	current_level = get_node_or_null("Level")
 	if start_level:
 		change_level(start_level)
+	_show_intro()
+
+
+func _show_intro() -> void:
+	get_tree().paused = true
+	var intro = preload("res://scenes/ui/intro_screen.tscn").instantiate()
+	add_child(intro)
 
 
 func change_level(level_scene: PackedScene) -> void:
