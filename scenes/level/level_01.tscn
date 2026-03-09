@@ -108,7 +108,7 @@ platform_size = Vector2(40, 1512)
 platform_color = Color(0.113725, 0.247059, 0.447059, 1)
 
 [node name="PatrolEnemy1" parent="." instance=ExtResource("1_patrol")]
-position = Vector2(461, 268)
+position = Vector2(463, 396)
 
 [node name="PatrolEnemy2" parent="." instance=ExtResource("1_patrol")]
 position = Vector2(833, 250)

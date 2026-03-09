@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://chase001" path="res://scenes/enemies/chase_enemy.tscn" id="2_chase"]
 [ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="3_platform"]
 [ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="4_5g03a"]
-[ext_resource type="PackedScene" uid="uid://0xeui2ohwqcf" path="res://scenes/level/level_04.tscn" id="5_fm2p5"]
+[ext_resource type="PackedScene" uid="uid://d1drtpyexheny" path="res://scenes/level/level_03.tscn" id="5_fm2p5"]
 [ext_resource type="PackedScene" uid="uid://bl73rv4wein64" path="res://scenes/platform/moving_platform.tscn" id="5_saf3a"]
 
 [node name="Level02" type="Node2D"]

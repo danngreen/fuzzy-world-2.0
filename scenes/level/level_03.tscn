@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d1drtpyexheny"]
+[gd_scene load_steps=4 format=3 uid="uid://d1drtpyexheny"]
 
 [ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="1_2u4e0"]
+[ext_resource type="PackedScene" uid="uid://0xeui2ohwqcf" path="res://scenes/level/level_04.tscn" id="3_71jyh"]
 [ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="4_nt61i"]
 
 [node name="Level03" type="Node2D"]
@@ -37,6 +38,7 @@ platform_color = Color(0.62024, 0.0385257, 0.244638, 1)
 
 [node name="Portal" parent="." instance=ExtResource("4_nt61i")]
 position = Vector2(1236, 230)
+next_level = ExtResource("3_71jyh")
 
 [node name="Platform" parent="." instance=ExtResource("1_2u4e0")]
 position = Vector2(172, 608)
