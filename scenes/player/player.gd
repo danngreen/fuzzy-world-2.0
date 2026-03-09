@@ -284,6 +284,24 @@ func _update_hud() -> void:
 		hud.update_hearts(health)
 		hud.update_lives(lives)
 
+func spawn_fire_effect():
+	var count = randi_range(6, 8)
+	for i in count:
+		var p = ColorRect.new()
+		p.size = Vector2(3, 3)
+		p.color = Color(1, randf_range(0.2, 0.5), 0, 1)
+		p.position = Vector2(randf_range(-10, 10), randf_range(-20, 10))
+		add_child(p)
+		var lifetime = randf_range(0.4, 0.7)
+		var dest = p.position + Vector2(randf_range(-20, 20), randf_range(-50, -20))
+		var tween = p.create_tween()
+		tween.set_parallel(true)
+		tween.tween_property(p, "position", dest, lifetime)
+		tween.tween_property(p, "modulate:a", 0.0, lifetime)
+		tween.set_parallel(false)
+		tween.tween_callback(p.queue_free)
+
+
 func _play_sound_jump() -> void:
 	if size_scale == 0.5:
 		$SFX/Jump/Small.play()
