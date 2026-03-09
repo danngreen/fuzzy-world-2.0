@@ -37,6 +37,23 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+	# Check if we walked into the player
+	for i in get_slide_collision_count():
+		var collision = get_slide_collision(i)
+		var collider = collision.get_collider()
+		if collider.is_in_group("player"):
+			if collision.get_normal().y < -0.5:
+				# Landed on player's head — hat shield, bounce off
+				velocity.y = -300.0
+			else:
+				var away_dir = sign(collider.global_position.x - global_position.x)
+				if away_dir == 0:
+					away_dir = 1.0
+				collider.velocity.x = away_dir * 300.0 / collider.SIZE_PARAMS[collider.size_scale]["mass"]
+				collider.velocity.y = -200.0
+				collider.take_damage()
+			break
+
 	# Turn around on wall
 	if is_on_wall():
 		direction *= -1.0

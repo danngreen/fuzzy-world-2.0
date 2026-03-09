@@ -151,9 +151,13 @@ func _physics_process(delta: float) -> void:
 				# Drone guards knock the drone back, not the player
 				collider.velocity = Vector2(-away_dir * 300.0, -200.0)
 				take_damage()
+			elif collision.get_normal().y > 0.5:
+				# Enemy on head — hat shield, bounce enemy off
+				collider.velocity.y = -300.0
 			else:
 				# Normal enemies knock the player back
-				velocity = Vector2(away_dir * 300.0, -200.0)
+				velocity.x = away_dir * 300.0 / SIZE_PARAMS[size_scale]["mass"]
+				velocity.y = -200.0
 				take_damage()
 			break
 
