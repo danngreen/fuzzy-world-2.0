@@ -48,6 +48,12 @@ func start_guide() -> void:
 
 
 func game_over() -> void:
+	get_tree().paused = true
+	var screen = preload("res://scenes/ui/game_over_screen.tscn").instantiate()
+	add_child(screen)
+
+
+func _finish_game_over() -> void:
 	var player = $Player
 	player._update_hud()
 	change_level(start_level)
