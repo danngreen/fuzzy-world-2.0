@@ -7,6 +7,7 @@ var start_y := 290.0
 var spacing := 80.0
 var arrow_x := 470.0
 var text_x := 520.0
+var guide_enabled := false
 
 
 func _ready():
@@ -15,10 +16,12 @@ func _ready():
 	bg.size = Vector2(1280, 720)
 	add_child(bg)
 
-	var menu_items = ["Play", "Tutorial"]
+	var menu_items = ["Play", "Guide: Off"]
+	var font = load("res://assets/ShareTechMono-Regular.ttf")
 	for i in menu_items.size():
 		var label = Label.new()
 		label.text = menu_items[i]
+		label.add_theme_font_override("font", font)
 		label.add_theme_font_size_override("font_size", 52)
 		label.add_theme_color_override("font_color", Color.WHITE)
 		label.position = Vector2(text_x, start_y + i * spacing)
@@ -72,6 +75,14 @@ func _update_selection(instant: bool):
 
 func _confirm():
 	if selected == 0:  # Play
+		var main = get_tree().get_first_node_in_group("game_manager")
+		if guide_enabled:
+			main.start_guide()
 		get_tree().paused = false
 		queue_free()
-	# Tutorial: not implemented yet
+	elif selected == 1:  # Guide toggle
+		guide_enabled = not guide_enabled
+		labels[1].text = "Guide: On" if guide_enabled else "Guide: Off"
+		labels[1].scale = Vector2(1.0, 1.0)
+		var t = labels[1].create_tween()
+		t.tween_property(labels[1], "scale", Vector2(1.15, 1.15), 0.1).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)

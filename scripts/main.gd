@@ -42,6 +42,11 @@ func change_level(level_scene: PackedScene) -> void:
 	player.spawn_position = player.global_position
 
 
+func start_guide() -> void:
+	var guide = preload("res://scenes/ui/guide.tscn").instantiate()
+	add_child(guide)
+
+
 func game_over() -> void:
 	var player = $Player
 	player._update_hud()

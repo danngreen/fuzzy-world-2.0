@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfb8x2m1r12"]
+
+[ext_resource type="Script" uid="uid://dfb8x2m1r13" path="res://scenes/ui/guide_trigger.gd" id="1_script"]
+
+[node name="GuideTrigger" type="Node2D"]
+script = ExtResource("1_script")
