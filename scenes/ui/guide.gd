@@ -63,6 +63,8 @@ func _show_guide(guide_id: String):
 			_show_jump_guide()
 		"grow_shrink":
 			_show_growshrink_guide()
+		"super_jump":
+			_show_superjump_guide()
 		_:
 			pass
 
@@ -203,6 +205,82 @@ func _update_growshrink_anim():
 	left_key_bg.color = KEY_PRESSED_COLOR if up else KEY_COLOR
 	right_key_bg.color = KEY_PRESSED_COLOR if down else KEY_COLOR
 
+
+func _show_superjump_guide():
+	anim_time = 0.0
+	var panel = _make_panel(310, 200)
+
+	# Space bar key
+	left_key_bg = _make_key(panel, 15, 15, "\u2420")
+	left_key_bg.size = Vector2(80, 26)
+
+	# Down arrow key
+	right_key_bg = _make_key(panel, 15, 50, "\u2193")
+
+	# Ground near bottom of panel for tall jump
+	var ground = ColorRect.new()
+	ground.color = Color(0.35, 0.35, 0.4, 1)
+	ground.size = Vector2(140, 3)
+	ground.position = Vector2(148, 155)
+	panel.add_child(ground)
+
+	_make_player(panel)
+	fake_player.position = Vector2(211, 131)
+	fake_player.pivot_offset = Vector2(7, 24)  # scale from feet
+
+	_make_text(panel, "Shrink right after jumping\nto launch super-high!", 15, 165)
+
+	anim_update = _update_superjump_anim
+
+
+func _update_superjump_anim():
+	const CYCLE = 3.0
+	const JUMP_T = 0.25       # space press
+	const SHRINK_T = 0.45     # down press
+	const GROW_T = 2.2        # grow back after landing
+	const GROW_END = 2.4
+
+	const VEL1 = -300.0       # initial jump velocity
+	const GRAV = 480.0
+	const BOOST = 1.5         # momentum boost from shrinking
+	const GROUND_Y = 155.0
+	const SMALL_SCALE = 0.5
+
+	# Pre-compute phase 1 endpoint
+	const DT_PRE = SHRINK_T - JUMP_T
+	const VEL_AT_SHRINK = VEL1 + GRAV * DT_PRE
+	const Y_AT_SHRINK = VEL1 * DT_PRE + 0.5 * GRAV * DT_PRE * DT_PRE
+	const VEL2 = VEL_AT_SHRINK * BOOST
+
+	var t = fmod(anim_time, CYCLE)
+	var feet_y = GROUND_Y
+	var s = 1.0
+	var space = false
+	var down = false
+
+	if t < JUMP_T:
+		pass  # rest on ground
+	elif t < SHRINK_T:
+		# Normal size jump phase
+		space = true
+		var dt = t - JUMP_T
+		feet_y = GROUND_Y + VEL1 * dt + 0.5 * GRAV * dt * dt
+	elif t < GROW_T:
+		# Boosted jump (small)
+		var dt = t - SHRINK_T
+		feet_y = GROUND_Y + Y_AT_SHRINK + VEL2 * dt + 0.5 * GRAV * dt * dt
+		feet_y = minf(feet_y, GROUND_Y)
+		s = SMALL_SCALE
+		space = t < SHRINK_T + 0.1
+		down = t < SHRINK_T + 0.15
+	elif t < GROW_END:
+		# Grow back to normal
+		s = lerpf(SMALL_SCALE, 1.0, (t - GROW_T) / (GROW_END - GROW_T))
+
+	fake_player.position.y = feet_y - 24
+	fake_player.scale = Vector2(s, s)
+	left_key_bg.color = KEY_PRESSED_COLOR if space else KEY_COLOR
+	right_key_bg.color = KEY_PRESSED_COLOR if down else KEY_COLOR
 
 
 # --- Shared helpers ---
