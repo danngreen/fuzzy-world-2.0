@@ -17,7 +17,7 @@ offset_bottom = 677.0
 color = Color(0, 0, 0, 1)
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(675, 413)
+position = Vector2(84, 623)
 
 [node name="Floor" parent="." instance=ExtResource("1_l07hu")]
 position = Vector2(641, 680)
@@ -67,7 +67,7 @@ position = Vector2(335, 468)
 position = Vector2(790, 259)
 
 [node name="Sentry" parent="." instance=ExtResource("4_dg1jq")]
-position = Vector2(1010, 405)
+position = Vector2(259, 568)
 velocity = Vector2(40, 0)
 
 [node name="MovingPlatform" parent="." instance=ExtResource("3_dg1jq")]

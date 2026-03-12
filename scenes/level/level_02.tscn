@@ -17,7 +17,7 @@ offset_bottom = 677.0
 color = Color(0, 0, 0, 1)
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(400, 636)
+position = Vector2(142, 606)
 
 [node name="Floor" parent="." instance=ExtResource("3_platform")]
 position = Vector2(641, 680)
@@ -66,7 +66,7 @@ position = Vector2(1050, 250)
 platform_color = Color(0.6, 0.4, 0.2, 1)
 
 [node name="Platform8" parent="." instance=ExtResource("3_platform")]
-position = Vector2(850, 140)
+position = Vector2(849, 159)
 platform_size = Vector2(200, 20)
 platform_color = Color(0.6, 0.4, 0.2, 1)
 
@@ -84,7 +84,7 @@ platform_color = Color(0.3, 0.15, 0.1, 1)
 position = Vector2(403, 463)
 
 [node name="PatrolEnemy2" parent="." instance=ExtResource("1_patrol")]
-position = Vector2(902, 181)
+position = Vector2(894, 249)
 
 [node name="ChaseEnemy1" parent="." instance=ExtResource("2_chase")]
 position = Vector2(752, 473)

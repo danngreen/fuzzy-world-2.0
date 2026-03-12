@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d1drtpyexheny"]
+[gd_scene load_steps=5 format=3 uid="uid://d1drtpyexheny"]
 
 [ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="1_2u4e0"]
 [ext_resource type="PackedScene" uid="uid://0xeui2ohwqcf" path="res://scenes/level/level_04.tscn" id="3_71jyh"]
+[ext_resource type="PackedScene" uid="uid://dfb8x2m1r12" path="res://scenes/ui/guide_trigger.tscn" id="4_1nk3k"]
 [ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="4_nt61i"]
 
 [node name="Level03" type="Node2D"]
@@ -14,7 +15,7 @@ offset_bottom = 677.0
 color = Color(0, 0, 0, 1)
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(73, 635)
+position = Vector2(53, 633)
 
 [node name="Floor" parent="." instance=ExtResource("1_2u4e0")]
 position = Vector2(641, 680)
@@ -44,11 +45,15 @@ next_level = ExtResource("3_71jyh")
 position = Vector2(172, 608)
 
 [node name="Platform2" parent="." instance=ExtResource("1_2u4e0")]
-position = Vector2(351, 548)
+position = Vector2(338, 549)
 
 [node name="Platform3" parent="." instance=ExtResource("1_2u4e0")]
-position = Vector2(596, 488)
-platform_size = Vector2(300, 20)
+position = Vector2(605, 495)
+platform_size = Vector2(350, 20)
+
+[node name="Platform6" parent="." instance=ExtResource("1_2u4e0")]
+position = Vector2(770, 383)
+platform_size = Vector2(20, 210)
 
 [node name="Platform4" parent="." instance=ExtResource("1_2u4e0")]
 position = Vector2(1010, 271)
@@ -57,3 +62,8 @@ platform_size = Vector2(500, 20)
 [node name="Platform5" parent="." instance=ExtResource("1_2u4e0")]
 position = Vector2(1105, 192)
 platform_size = Vector2(300, 20)
+
+[node name="GuideTrigger" parent="." instance=ExtResource("4_1nk3k")]
+position = Vector2(635, 443)
+guide_id = "super_jump"
+dismiss_radius = 200.0
