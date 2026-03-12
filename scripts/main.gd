@@ -55,5 +55,11 @@ func game_over() -> void:
 
 func _finish_game_over() -> void:
 	var player = $Player
+	# Restore player visual state after death animation
+	player.respawning = false
+	player.get_node("CollisionShape2D").disabled = false
+	player.get_node("Sprite").visible = true
+	player.get_node("Sprite/ColorRect").visible = true
+	player.get_node("Sprite").pivot_offset = Vector2(14, 24)
 	player._update_hud()
 	change_level(start_level)
