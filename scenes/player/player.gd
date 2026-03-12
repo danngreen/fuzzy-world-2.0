@@ -200,7 +200,7 @@ func _reset_size() -> void:
 
 
 func take_damage() -> void:
-	if invincible:
+	if invincible or respawning:
 		return
 	var damage := 2.5 - size_scale
 	health -= damage
@@ -232,11 +232,56 @@ func die() -> void:
 func _start_respawn() -> void:
 	respawning = true
 	$CollisionShape2D.disabled = true
+	$Sprite.visible = false
+	global_position = Vector2(spawn_position.x, spawn_position.y - 25)
+
+	# Get the lost life icon's screen position from HUD
+	var hud = get_node_or_null("/root/Main/HUD")
+	var icon_pos := Vector2(16, 52)  # fallback near LivesContainer
+	if hud and lives < hud.life_icons.size():
+		icon_pos = hud.life_icons[lives].global_position
+
+	# Flying hat on a CanvasLayer (screen space)
+	var fly_layer = CanvasLayer.new()
+	fly_layer.layer = 12
+	add_child(fly_layer)
+
+	var fly_hat = Control.new()
+	fly_hat.position = icon_pos
+	fly_layer.add_child(fly_hat)
+
+	var top = ColorRect.new()
+	top.offset_left = 0; top.offset_top = 0
+	top.offset_right = 16; top.offset_bottom = 5
+	fly_hat.add_child(top)
+	var brim = ColorRect.new()
+	brim.offset_left = 0; brim.offset_top = 5
+	brim.offset_right = 18; brim.offset_bottom = 7
+	fly_hat.add_child(brim)
+
+	# Target: viewport center offset by hat position relative to player origin
+	var target_pos = get_viewport_rect().size / 2.0 + Vector2(-9, -40)
+
+	var tween = create_tween()
+	tween.tween_property(fly_hat, "position", target_pos, 1.0).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	# Snap to exact screen position once camera has settled
+	tween.tween_callback(func():
+		var screen_pos = get_viewport().get_canvas_transform() * global_position
+		fly_hat.position = screen_pos + Vector2(-9, -40)
+	)
+	# Hat hangs motionless
+	tween.tween_interval(0.1)
+	tween.tween_callback(func():
+		fly_layer.queue_free()
+		_begin_body_grow()
+	)
+
+
+func _begin_body_grow() -> void:
 	$Sprite.visible = true
 	$Sprite/ColorRect.visible = false
-	global_position = Vector2(spawn_position.x, spawn_position.y - 250)
 
-	# Pivot at bottom of hat brim (Sprite rect coords) so body grows downward from hat
+	# Pivot at bottom of hat brim so body grows downward from hat
 	$Sprite.pivot_offset = Vector2(14, -9)
 	$Sprite.scale = Vector2(1, 0.01)
 
@@ -254,7 +299,7 @@ func _start_respawn() -> void:
 	add_child(hat)
 
 	var tween = create_tween()
-	tween.tween_interval(0.8)
+	tween.tween_interval(0.1)
 	tween.tween_property($Sprite, "scale:y", 1.0, 1.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_callback(func():
 		hat.queue_free()
@@ -273,13 +318,60 @@ func _finish_respawn() -> void:
 
 
 func _game_over() -> void:
-	lives = MAX_LIVES
-	health = MAX_HEALTH
-	_reset_size()
+	respawning = true
 	velocity = Vector2.ZERO
-	var manager = get_tree().get_first_node_in_group("game_manager")
-	if manager:
-		manager.game_over()
+	$CollisionShape2D.disabled = true
+
+
+	# Standalone hat (same offsets as respawn hat), scaled to current size
+	var s := size_scale
+	var facing := signf($Sprite.scale.x) if $Sprite.scale.x != 0.0 else 1.0
+	var hat = Node2D.new()
+	hat.name = "DeathHat"
+	hat.scale = $Sprite.scale
+	hat.position = $Sprite.position * hat.scale
+	
+	var brim = ColorRect.new()
+	brim.position = $Sprite/ColorRect.position
+	brim.size = $Sprite/ColorRect.size
+	
+	var top = ColorRect.new()
+	top.position = $Sprite/ColorRect/ColorRect2.position
+	top.size = $Sprite/ColorRect/ColorRect2.size
+
+	# Hide sprite's hat, we'll make a standalone one
+	$Sprite/ColorRect.visible = false
+	
+	#$Sprite.add_child(hat)
+	add_child(hat)
+	hat.add_child(brim)
+	brim.add_child(top)
+
+	# Pivot at bottom of sprite so body collapses downward
+	$Sprite.pivot_offset = Vector2(14, 48)
+
+	var tween = create_tween()
+	tween.set_parallel(true)
+	# Body crumples: top collapses toward feet
+	tween.tween_property($Sprite, "scale:y", 0.0, 1.3).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
+	# Hat drifts down to ground (brim lands at foot level y=24)
+	var hat_target_y := 24.0 + 33.0 * s
+	tween.tween_property(hat, "position:y", hat_target_y, 1.5).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_QUAD)
+	# Slight tilt as hat falls
+	tween.tween_property(hat, "rotation", 0.25, 1.5).set_ease(Tween.EASE_IN_OUT)
+	tween.set_parallel(false)
+	# Dramatic pause — hat lingers on the ground
+	tween.tween_interval(1.5)
+	tween.tween_callback(func():
+		hat.queue_free()
+		$Sprite.visible = false
+		lives = MAX_LIVES
+		health = MAX_HEALTH
+		_reset_size()
+		var manager = get_tree().get_first_node_in_group("game_manager")
+		if manager:
+			manager.game_over()
+	)
 
 
 func _update_hud() -> void:
