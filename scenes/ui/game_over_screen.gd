@@ -22,6 +22,9 @@ const PHRASES = [
 	"Narrator: It was, in fact, not fine.",
 	"Insert coin to continue... just kidding",
 	"RIP in peace",
+	"YYYYYYYEEEEEEEAAAAAAAAHHH__-[x x]-__",
+	"WHY DID YOU EAT THAT CHEESE!!!!!",
+	"Tip: Enjoy extended game play by not dying!"
 ]
 
 var ready_for_input := false
