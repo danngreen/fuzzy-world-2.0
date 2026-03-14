@@ -79,6 +79,7 @@ func _confirm():
 		if guide_enabled:
 			main.start_guide()
 		get_tree().paused = false
+		main.initial_spawn()
 		queue_free()
 	elif selected == 1:  # Guide toggle
 		guide_enabled = not guide_enabled
