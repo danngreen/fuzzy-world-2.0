@@ -5,7 +5,7 @@ const PHRASES = [
 	"Totally Bogus!!",
 	"AHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
 	"Well, that didn't go as planned, did it?",
-	"[queue sad trombone]",
+	"[cue sad trombone]",
 	"Well what should we try next?",
 	"When's this game going to be over?!?!?",
 	"Plot Twist: you died",
@@ -24,8 +24,10 @@ const PHRASES = [
 	"RIP in peace",
 	"YYYYYYYEEEEEEEAAAAAAAAHHH__-[x x]-__",
 	"WHY DID YOU EAT THAT CHEESE!!!!!",
-	"Tip: Enjoy extended game play by not dying!"
-]
+	"Tip: Enjoy extended game play by not dying!",
+	"You're not supposed to let the bad guys touch you",
+	"I forgot to tell you, don't touch-- never mind"
+	]
 
 var ready_for_input := false
 
