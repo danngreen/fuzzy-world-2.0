@@ -10,6 +10,12 @@ var direction: float = 1.0
 
 func _ready() -> void:
 	add_to_group("enemies")
+	add_to_group("patrol")
+	# Patrol enemies pass through each other
+	for node in get_tree().get_nodes_in_group("patrol"):
+		if node != self:
+			add_collision_exception_with(node)
+			node.add_collision_exception_with(self)
 
 
 func _physics_process(delta: float) -> void:
@@ -17,13 +23,19 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y = minf(velocity.y + GRAVITY * delta, MAX_FALL_SPEED)
 
+	# Edge detection BEFORE moving — cast straight down from leading edge
+	$EdgeDetector.position.x = direction * 10.0
+	$EdgeDetector.target_position = Vector2(0, 20)
+	$EdgeDetector.force_raycast_update()
+	if is_on_floor() and not $EdgeDetector.is_colliding():
+		direction *= -1.0
+
 	# Move horizontally
 	velocity.x = direction * speed
 
 	move_and_slide()
 
 	# Check slide collisions
-	var reversed := false
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
@@ -39,25 +51,10 @@ func _physics_process(delta: float) -> void:
 				collider.velocity.y = -200.0
 				collider.take_damage()
 			break
-		# Reverse on hitting another enemy or a moving platform from the side
-		if absf(collision.get_normal().x) > 0.5:
-			if not reversed:
-				direction *= -1.0
-				reversed = true
-				global_position.x += collision.get_normal().x * 2.0
-			break
 
-	# Turn around on wall (skip if already reversed from a collision)
-	if not reversed and is_on_wall():
+	# Turn around on wall
+	if is_on_wall():
 		direction *= -1.0
-
-	# Turn around at ledge — check if raycast lost ground
-	if is_on_floor():
-		if not $EdgeDetector.is_colliding():
-			direction *= -1.0
-
-	# Keep raycast pointing in movement direction
-	$EdgeDetector.target_position.x = direction * 16.0
 
 	# Flip sprite
 	$Sprite.scale.x = sign(direction) * absf($Sprite.scale.x)
