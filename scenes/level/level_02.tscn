@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://level002"]
+[gd_scene load_steps=8 format=3 uid="uid://level002"]
 
 [ext_resource type="PackedScene" uid="uid://patrol001" path="res://scenes/enemies/patrol_enemy.tscn" id="1_patrol"]
 [ext_resource type="PackedScene" uid="uid://chase001" path="res://scenes/enemies/chase_enemy.tscn" id="2_chase"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="4_5g03a"]
 [ext_resource type="PackedScene" uid="uid://d1drtpyexheny" path="res://scenes/level/level_03.tscn" id="5_fm2p5"]
 [ext_resource type="PackedScene" uid="uid://bl73rv4wein64" path="res://scenes/platform/moving_platform.tscn" id="5_saf3a"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/spikes.tscn" id="7_xwd00"]
 
 [node name="Level02" type="Node2D"]
 
@@ -108,3 +109,12 @@ move_offset = Vector2(800, 0)
 
 [node name="ChaseEnemy" parent="." instance=ExtResource("2_chase")]
 position = Vector2(409, -109)
+
+[node name="Spikes" parent="." instance=ExtResource("7_xwd00")]
+position = Vector2(1220, 660)
+
+[node name="Spikes2" parent="." instance=ExtResource("7_xwd00")]
+position = Vector2(1140, 660)
+
+[node name="Spikes3" parent="." instance=ExtResource("7_xwd00")]
+position = Vector2(1060, 660)

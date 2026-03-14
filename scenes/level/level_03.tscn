@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1drtpyexheny"]
+[gd_scene load_steps=7 format=3 uid="uid://d1drtpyexheny"]
 
 [ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="1_2u4e0"]
 [ext_resource type="PackedScene" uid="uid://0xeui2ohwqcf" path="res://scenes/level/level_04.tscn" id="3_71jyh"]
 [ext_resource type="PackedScene" uid="uid://dfb8x2m1r12" path="res://scenes/ui/guide_trigger.tscn" id="4_1nk3k"]
 [ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="4_nt61i"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/spikes.tscn" id="5_6b2kf"]
+[ext_resource type="PackedScene" uid="uid://patrol001" path="res://scenes/enemies/patrol_enemy.tscn" id="6_uy53s"]
 
 [node name="Level03" type="Node2D"]
 
@@ -67,3 +69,12 @@ platform_size = Vector2(300, 20)
 position = Vector2(635, 443)
 guide_id = "super_jump"
 dismiss_radius = 200.0
+
+[node name="Spikes" parent="." instance=ExtResource("5_6b2kf")]
+position = Vector2(995, 182)
+
+[node name="Spikes2" parent="." instance=ExtResource("5_6b2kf")]
+position = Vector2(1075, 182)
+
+[node name="PatrolEnemy" parent="." instance=ExtResource("6_uy53s")]
+position = Vector2(1152, 170)
