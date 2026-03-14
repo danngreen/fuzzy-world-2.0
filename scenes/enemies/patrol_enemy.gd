@@ -22,7 +22,8 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# Check if we walked into the player
+	# Check slide collisions
+	var reversed := false
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
@@ -38,9 +39,16 @@ func _physics_process(delta: float) -> void:
 				collider.velocity.y = -200.0
 				collider.take_damage()
 			break
+		# Reverse on hitting another enemy or a moving platform from the side
+		if absf(collision.get_normal().x) > 0.5:
+			if not reversed:
+				direction *= -1.0
+				reversed = true
+				global_position.x += collision.get_normal().x * 2.0
+			break
 
-	# Turn around on wall
-	if is_on_wall():
+	# Turn around on wall (skip if already reversed from a collision)
+	if not reversed and is_on_wall():
 		direction *= -1.0
 
 	# Turn around at ledge — check if raycast lost ground

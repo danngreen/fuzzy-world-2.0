@@ -29,9 +29,32 @@ func _on_body_entered(body):
 			body.spawn_fire_effect()
 		body.take_damage()
 		queue_free()
-	elif not body.is_in_group("enemies") and not body.is_in_group("drone_guards"):
+	elif body.is_in_group("enemies") and not body.is_in_group("drone_guards"):
+		_spawn_smoke(body.global_position)
+		body.queue_free()
+		queue_free()
+	elif not body.is_in_group("drone_guards"):
 		_spawn_splash()
 		queue_free()
+
+
+func _spawn_smoke(pos: Vector2):
+	for i in 10:
+		var p = ColorRect.new()
+		var s = randf_range(4, 8)
+		p.size = Vector2(s, s)
+		p.color = Color(randf_range(0.5, 0.7), randf_range(0.5, 0.7), randf_range(0.5, 0.7), 1)
+		get_parent().add_child(p)
+		p.global_position = pos + Vector2(randf_range(-10, 10), randf_range(-12, 4))
+		var dest = p.position + Vector2(randf_range(-25, 25), randf_range(-40, -10))
+		var lifetime = randf_range(0.4, 0.7)
+		var tween = p.create_tween()
+		tween.set_parallel(true)
+		tween.tween_property(p, "position", dest, lifetime).set_ease(Tween.EASE_OUT)
+		tween.tween_property(p, "size", p.size * 2.0, lifetime).set_ease(Tween.EASE_OUT)
+		tween.tween_property(p, "modulate:a", 0.0, lifetime)
+		tween.set_parallel(false)
+		tween.tween_callback(p.queue_free)
 
 
 func _spawn_splash():
