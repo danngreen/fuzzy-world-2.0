@@ -51,6 +51,7 @@ var lives: int = MAX_LIVES
 var respawning := false
 
 var hat_y: float
+var spike_safe := false
 var size_scale := 1.0
 var size_tween: Tween
 
@@ -136,10 +137,20 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	# Check enemy collisions after move_and_slide
+	# Check spike/enemy collisions after move_and_slide
+	var on_spikes_this_frame := false
 	for i in get_slide_collision_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
+		if collider.is_in_group("spikes"):
+			# Only damage when landing from above, no knockback
+			if collision.get_normal().y < -0.5:
+				on_spikes_this_frame = true
+				if not spike_safe:
+					take_damage()
+					spike_safe = true
+			# Side collisions: barrier only, no damage
+			continue
 		if collider.is_in_group("enemies"):
 			var away_dir = sign(global_position.x - collider.global_position.x)
 			if away_dir == 0:
@@ -151,7 +162,7 @@ func _physics_process(delta: float) -> void:
 				# Drone guards knock the drone back, not the player
 				collider.velocity = Vector2(-away_dir * 300.0, -200.0)
 				take_damage()
-			elif collision.get_normal().y > 0.5:
+			elif collision.get_normal().y > 0.5 and collider is CharacterBody2D:
 				# Enemy on head — hat shield, bounce enemy off
 				collider.velocity.y = -300.0
 			else:
@@ -160,6 +171,12 @@ func _physics_process(delta: float) -> void:
 				velocity.y = -200.0
 				take_damage()
 			break
+
+	# Reset spike_safe when leaving spikes or starting to move
+	if not on_spikes_this_frame:
+		spike_safe = false
+	elif direction != 0:
+		spike_safe = false
 
 
 func _change_size(new_scale: float) -> void:
