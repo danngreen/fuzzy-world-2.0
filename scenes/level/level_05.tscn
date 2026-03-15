@@ -16,7 +16,7 @@ offset_bottom = 677.0
 color = Color(0, 0, 0, 1)
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(614, 112)
+position = Vector2(209, 619)
 
 [node name="Floor" parent="." instance=ExtResource("1_l07hu")]
 position = Vector2(641, 680)
@@ -42,10 +42,14 @@ platform_color = Color(0.372582, 0.319702, 0.326985, 1)
 position = Vector2(638, -227)
 
 [node name="Platform" parent="." instance=ExtResource("1_l07hu")]
-position = Vector2(999, 573)
+position = Vector2(999, 570)
 
 [node name="Platform3" parent="." instance=ExtResource("1_l07hu")]
-position = Vector2(252, 357)
+position = Vector2(253, 420)
+
+[node name="Platform4" parent="." instance=ExtResource("1_l07hu")]
+position = Vector2(160, 320)
+platform_size = Vector2(280, 20)
 
 [node name="Platform6" parent="." instance=ExtResource("1_l07hu")]
 position = Vector2(915, -17)
@@ -60,71 +64,81 @@ position = Vector2(775, -42)
 platform_size = Vector2(20, 30)
 
 [node name="Platform5" parent="." instance=ExtResource("1_l07hu")]
-position = Vector2(643, 145)
+position = Vector2(643, 173)
 
 [node name="Platform2" parent="." instance=ExtResource("1_l07hu")]
-position = Vector2(421, 432)
+position = Vector2(421, 470)
 platform_size = Vector2(800, 20)
 
-[node name="Platform4" parent="." instance=ExtResource("1_l07hu")]
-position = Vector2(754, 432)
-
 [node name="MovingPlatform" parent="." instance=ExtResource("3_dg1jq")]
-position = Vector2(488, 264)
+position = Vector2(451, 331)
 platform_size = Vector2(200, 20)
 move_offset = Vector2(400, 0)
 move_speed = 120.0
 
 [node name="Dropper" parent="." instance=ExtResource("6_dww84")]
-position = Vector2(572, 448)
+position = Vector2(549, 485)
+
+[node name="Dropper5" parent="." instance=ExtResource("6_dww84")]
+position = Vector2(433, 347)
+drop_interval = 0.2
+drop_mode = 2
 
 [node name="Dropper4" parent="." instance=ExtResource("6_dww84")]
-position = Vector2(705, 162)
+position = Vector2(705, 190)
 drop_interval = 0.1
 drop_mode = 1
 
 [node name="Dropper2" parent="." instance=ExtResource("6_dww84")]
-position = Vector2(692, 448)
+position = Vector2(669, 485)
 drop_interval = 0.5
 drop_mode = 1
 
 [node name="Dropper3" parent="." instance=ExtResource("6_dww84")]
-position = Vector2(809, 448)
+position = Vector2(786, 486)
 drop_interval = 1.0
 drop_mode = 2
 
 [node name="PatrolEnemy2" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(421, 242)
+position = Vector2(384, 309)
+speed = 76.0
+
+[node name="PatrolEnemy6" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(282, 397)
 speed = 76.0
 
 [node name="PatrolEnemy3" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(189, 333)
+position = Vector2(190, 396)
 speed = 40.0
 
 [node name="PatrolEnemy4" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(250, 333)
+position = Vector2(251, 396)
 speed = 40.0
 
 [node name="PatrolEnemy5" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(318, 333)
+position = Vector2(319, 396)
 speed = 35.0
 
 [node name="PatrolEnemy7" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(445, 242)
+position = Vector2(408, 309)
+speed = 60.0
+
+[node name="PatrolEnemy12" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(219, 396)
 speed = 60.0
 
 [node name="PatrolEnemy11" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(473, 242)
+position = Vector2(436, 309)
 speed = 70.0
 
 [node name="PatrolEnemy8" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(499, 242)
+position = Vector2(462, 309)
 speed = 80.0
 
 [node name="PatrolEnemy10" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(525, 242)
+position = Vector2(488, 309)
 speed = 90.0
 
 [node name="PatrolEnemy9" parent="." instance=ExtResource("5_dg1jq")]
-position = Vector2(547, 241)
+position = Vector2(510, 308)
 speed = 65.0
