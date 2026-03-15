@@ -16,7 +16,7 @@ func _ready():
 	bg.size = Vector2(1280, 720)
 	add_child(bg)
 
-	var menu_items = ["Play", "Guide: Off"]
+	var menu_items = ["Play", "Guide: Off", "Replay Intro"]
 	var font = load("res://assets/ShareTechMono-Regular.ttf")
 	for i in menu_items.size():
 		var label = Label.new()
@@ -81,6 +81,10 @@ func _confirm():
 		get_tree().paused = false
 		main.initial_spawn()
 		queue_free()
+	elif selected == 2:  # Replay Intro
+		var main = get_tree().get_first_node_in_group("game_manager")
+		queue_free()
+		main._show_intro_animation()
 	elif selected == 1:  # Guide toggle
 		guide_enabled = not guide_enabled
 		labels[1].text = "Guide: On" if guide_enabled else "Guide: Off"
