@@ -16,7 +16,13 @@ func _ready() -> void:
 	player.respawning = true
 	player.get_node("CollisionShape2D").disabled = true
 	player.get_node("Sprite").visible = false
-	_show_intro()
+	_show_intro_animation()
+
+
+func _show_intro_animation() -> void:
+	get_tree().paused = true
+	var anim = preload("res://scenes/ui/intro_animation.tscn").instantiate()
+	add_child(anim)
 
 
 func _show_intro() -> void:
