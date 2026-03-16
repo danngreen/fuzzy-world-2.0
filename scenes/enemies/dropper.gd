@@ -8,23 +8,30 @@ enum DropMode { ALWAYS, WHEN_BELOW, UNLESS_BELOW }
 
 var timer: float = 0.0
 var fireball_scene: PackedScene
+var body: ColorRect
+
+const COLOR_DIM    = Color(0.4,  0.1,  0.1,  1)
+const COLOR_ACTIVE = Color(0.85, 0.2,  0.05, 1)
 
 
 func _ready():
 	fireball_scene = preload("res://scenes/enemies/fireball.tscn")
 	timer = drop_interval
+	body = $Body
 
 
 func _physics_process(delta):
+	var player = get_tree().get_first_node_in_group("player")
+	var active = _is_active(player)
+	body.color = COLOR_ACTIVE if active else COLOR_DIM
 	timer -= delta
 	if timer <= 0:
 		timer = drop_interval
-		if _should_drop():
+		if active:
 			_drop_fireball()
 
 
-func _should_drop() -> bool:
-	var player = get_tree().get_first_node_in_group("player")
+func _is_active(player: Node) -> bool:
 	if not player:
 		return drop_mode == DropMode.ALWAYS
 	var below = absf(player.global_position.x - global_position.x) <= detection_width
