@@ -1,0 +1,104 @@
+[gd_scene load_steps=6 format=3 uid="uid://crihy7s6wxfpm"]
+
+[ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="1_secqh"]
+[ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="2_cgd5u"]
+[ext_resource type="PackedScene" uid="uid://bl73rv4wein64" path="res://scenes/platform/moving_platform.tscn" id="3_g3vos"]
+[ext_resource type="PackedScene" uid="uid://sentry001" path="res://scenes/enemies/sentry.tscn" id="4_52jvv"]
+[ext_resource type="PackedScene" uid="uid://drone001" path="res://scenes/enemies/drone_guard.tscn" id="5_c7ptt"]
+
+[node name="Level05" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 14.0
+offset_top = -468.0
+offset_right = 1274.0
+offset_bottom = 677.0
+color = Color(0, 0, 0, 1)
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(184, 598)
+
+[node name="Floor" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(641, 680)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.480774, 0.406629, 0.0595156, 1)
+
+[node name="Ceiling" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(641, -480)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.372582, 0.319702, 0.326985, 1)
+
+[node name="WallLeft" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(0, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.372582, 0.319702, 0.326985, 1)
+
+[node name="WallRight" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(1280, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.372582, 0.319702, 0.326985, 1)
+
+[node name="Sentry" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(369, -144)
+detection_radius = 150.0
+
+[node name="Sentry2" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(386, 380)
+detection_radius = 150.0
+
+[node name="Portal" parent="." instance=ExtResource("2_cgd5u")]
+position = Vector2(111, -388)
+
+[node name="Platform" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(222, -277)
+platform_size = Vector2(400, 20)
+
+[node name="Platform5" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(222, -277)
+platform_size = Vector2(400, 20)
+
+[node name="Platform3" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(809, -201)
+platform_size = Vector2(900, 20)
+
+[node name="Platform4" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(421, -118)
+platform_size = Vector2(800, 20)
+
+[node name="Platform2" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(320, 547)
+platform_size = Vector2(400, 20)
+
+[node name="MovingPlatform" parent="." instance=ExtResource("3_g3vos")]
+position = Vector2(326, 58)
+
+[node name="MovingPlatform2" parent="." instance=ExtResource("3_g3vos")]
+position = Vector2(521, 210)
+
+[node name="MovingPlatform4" parent="." instance=ExtResource("3_g3vos")]
+position = Vector2(368, 406)
+move_offset = Vector2(600, 0)
+move_mode = 2
+
+[node name="MovingPlatform6" parent="." instance=ExtResource("3_g3vos")]
+position = Vector2(368, 406)
+move_offset = Vector2(600, 0)
+move_mode = 2
+
+[node name="DroneGuard" parent="." instance=ExtResource("5_c7ptt")]
+position = Vector2(479, 592)
+
+[node name="DroneGuard2" parent="." instance=ExtResource("5_c7ptt")]
+position = Vector2(162, 583)
+
+[node name="DroneGuard3" parent="." instance=ExtResource("5_c7ptt")]
+position = Vector2(123, 203)
+
+[node name="DroneGuard6" parent="." instance=ExtResource("5_c7ptt")]
+position = Vector2(276, 225)
+
+[node name="DroneGuard4" parent="." instance=ExtResource("5_c7ptt")]
+position = Vector2(647, 252)
+
+[node name="DroneGuard5" parent="." instance=ExtResource("5_c7ptt")]
+position = Vector2(526, 83)

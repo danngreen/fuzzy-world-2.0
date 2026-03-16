@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://0xeui2ohwqcf" path="res://scenes/level/level_04.tscn" id="3_71jyh"]
 [ext_resource type="PackedScene" uid="uid://dfb8x2m1r12" path="res://scenes/ui/guide_trigger.tscn" id="4_1nk3k"]
 [ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="4_nt61i"]
-[ext_resource type="PackedScene" path="res://scenes/enemies/spikes.tscn" id="5_6b2kf"]
+[ext_resource type="PackedScene" uid="uid://spikes001" path="res://scenes/enemies/spikes.tscn" id="5_6b2kf"]
 [ext_resource type="PackedScene" uid="uid://patrol001" path="res://scenes/enemies/patrol_enemy.tscn" id="6_uy53s"]
 
 [node name="Level03" type="Node2D"]
