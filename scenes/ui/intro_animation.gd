@@ -25,6 +25,7 @@ func _input(event: InputEvent) -> void:
 		_skip_requested = true
 		_kill_tweens()
 		_go_to_menu()
+		get_viewport().set_input_as_handled()
 
 
 func _kill_tweens() -> void:

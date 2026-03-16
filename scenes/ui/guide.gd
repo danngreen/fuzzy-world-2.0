@@ -11,6 +11,7 @@ var anim_update: Callable
 var left_key_bg: ColorRect
 var right_key_bg: ColorRect
 var fake_player: ColorRect
+var patrol_enemy: ColorRect
 
 const KEY_COLOR = Color(0.25, 0.25, 0.3, 1)
 const KEY_PRESSED_COLOR = Color(0.7, 0.6, 0.15, 1)
@@ -65,6 +66,8 @@ func _show_guide(guide_id: String):
 			_show_growshrink_guide()
 		"super_jump":
 			_show_superjump_guide()
+		"patrol-head-butt":
+			_show_patrolheadbutt_guide();
 		_:
 			pass
 
@@ -129,7 +132,6 @@ func _show_jump_guide():
 	_make_text(panel, "Press space bar to jump", 15, 90)
 
 	anim_update = _update_jump_anim
-
 
 func _update_jump_anim():
 	const CYCLE = 1.6
@@ -281,6 +283,80 @@ func _update_superjump_anim():
 	fake_player.scale = Vector2(s, s)
 	left_key_bg.color = KEY_PRESSED_COLOR if space else KEY_COLOR
 	right_key_bg.color = KEY_PRESSED_COLOR if down else KEY_COLOR
+
+
+func _show_patrolheadbutt_guide():
+	anim_time = 0.0
+	var panel = _make_panel(310, 200)
+
+	# Ground line
+	var ground = ColorRect.new()
+	ground.color = Color(0.35, 0.35, 0.4, 1)
+	ground.size = Vector2(290, 3)
+	ground.position = Vector2(10, 155)
+	panel.add_child(ground)
+
+	# Raised platform — top at y=131 (same as player body top), starts right at player's right edge
+	var platform = ColorRect.new()
+	platform.color = Color(0.40, 0.40, 0.45, 1)
+	platform.size = Vector2(161, 8)
+	platform.position = Vector2(124, 129)
+	panel.add_child(platform)
+
+	# Player standing on ground (body top at y=131, feet at y=155)
+	_make_player(panel)
+	fake_player.position = Vector2(110, 131)
+
+	# Patrol enemy (gray, starts on platform with feet at y=131)
+	patrol_enemy = ColorRect.new()
+	patrol_enemy.color = Color(0.433019, 0.161173, 0.999991, 1)
+	patrol_enemy.size = Vector2(fake_player.size.x * 0.6, fake_player.size.y * 0.5)
+	patrol_enemy.position = Vector2(230, platform.position.y)
+	panel.add_child(patrol_enemy)
+
+	var visor = ColorRect.new()
+	visor.color = Color(0.191601, 0.665594, 0.757194, 1)
+	visor.size = Vector2(4, 2)
+	visor.position = Vector2(0, 2)
+	patrol_enemy.add_child(visor)
+
+	_make_text(panel, "Stand below a raised edge to\nbounce patrollers off your hat!", 10, 165)
+	anim_update = _update_patrolheadbutt_anim
+
+
+func _update_patrolheadbutt_anim():
+	const CYCLE = 4.0
+	const PLATFORM_TOP_Y = 129.0
+	const GROUND_Y = 155.0
+	var ENEMY_H = fake_player.size.y * 0.5
+	const ENEMY_START_X = 230.0
+	const PLAYER_RIGHT_X = 117.0  # player x=110, width=14
+	const VX = -60.0
+	const VY_KNOCK = -150.0
+	const GRAV = 480.0
+	const T_HIT = (ENEMY_START_X - PLAYER_RIGHT_X) / 60.0
+	const FLIGHT_T = 0.757 # airborne time after bounce
+
+	var t = fmod(anim_time, CYCLE)
+	var ex: float
+	var ey: float
+
+	if t < T_HIT:
+		# Walking left on platform toward player
+		ex = ENEMY_START_X + VX * t
+		ey = PLATFORM_TOP_Y - ENEMY_H
+	elif t < T_HIT + FLIGHT_T:
+		# Bounced off hat — airborne
+		var dt = t - T_HIT
+		ex = PLAYER_RIGHT_X + VX * dt
+		ey = (PLATFORM_TOP_Y - ENEMY_H) + VY_KNOCK * dt + 0.5 * GRAV * dt * dt
+	else:
+		# Landed on ground, continues left
+		var dt = t - T_HIT - FLIGHT_T
+		ex = (PLAYER_RIGHT_X + VX * FLIGHT_T) + VX * dt
+		ey = GROUND_Y - ENEMY_H
+
+	patrol_enemy.position = Vector2(ex, ey)
 
 
 # --- Shared helpers ---
