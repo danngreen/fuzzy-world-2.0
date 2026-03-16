@@ -192,11 +192,25 @@ func _change_size(new_scale: float) -> void:
 	var new_mass: float = SIZE_PARAMS[size_scale]["mass"]
 	velocity *= old_mass / new_mass
 
-	# Keep feet grounded: adjust position so collision bottom stays at same Y
-	position.y -= (size_scale - old_scale) * BASE_COLLISION_SIZE.y / 2.0
-
 	# Update collision shape immediately (physics needs it)
 	$CollisionShape2D.shape.size = BASE_COLLISION_SIZE * size_scale
+
+	# Keep feet grounded: adjust position so collision bottom stays at same Y
+	var adjustment := -(size_scale - old_scale) * BASE_COLLISION_SIZE.y / 2.0
+
+	# When growing, verify there's enough headroom.
+	# Test from the *adjusted* position (where feet are back at floor level)
+	# with a tiny upward nudge — this avoids false-positives from the floor.
+	if adjustment < 0.0:
+		var test_xform := global_transform.translated(Vector2(0.0, adjustment))
+		if test_move(test_xform, Vector2(0.0, -1.0)):
+			# Ceiling blocks the growth — revert everything
+			size_scale = old_scale
+			$CollisionShape2D.shape.size = BASE_COLLISION_SIZE * old_scale
+			velocity *= new_mass / old_mass
+			return
+
+	position.y += adjustment
 
 	# Animate sprite scale from current visual size to target
 	if size_tween and size_tween.is_valid():
