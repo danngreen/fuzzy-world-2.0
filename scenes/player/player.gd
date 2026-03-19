@@ -231,6 +231,8 @@ func _reset_size() -> void:
 
 
 func take_damage() -> void:
+	$SFX/Damage/Damage.play()
+
 	if invincible or respawning:
 		return
 	var damage := 2.5 - size_scale
@@ -328,6 +330,8 @@ func _begin_body_grow() -> void:
 	brim.offset_right = 9; brim.offset_bottom = -33
 	hat.add_child(brim)
 	add_child(hat)
+
+	$SFX/Spawn/Spawn.play()
 
 	var tween = create_tween()
 	tween.tween_interval(0.1)
