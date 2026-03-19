@@ -54,6 +54,7 @@ var hat_y: float
 var spike_safe := false
 var size_scale := 1.0
 var size_tween: Tween
+var in_tunnel := false
 
 
 func _ready() -> void:
@@ -64,6 +65,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	if respawning:
+		return
+
+	if in_tunnel:
+		velocity.x = 0
+		if not is_on_floor():
+			velocity.y = minf(velocity.y + GRAVITY * delta, MAX_FALL_SPEED)
+		move_and_slide()
 		return
 
 	# Invincibility frames
