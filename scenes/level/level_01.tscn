@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://level001"]
+[gd_scene load_steps=10 format=3 uid="uid://level001"]
 
 [ext_resource type="PackedScene" uid="uid://patrol001" path="res://scenes/enemies/patrol_enemy.tscn" id="1_patrol"]
 [ext_resource type="PackedScene" uid="uid://chase001" path="res://scenes/enemies/chase_enemy.tscn" id="2_chase"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="5_platform"]
 [ext_resource type="PackedScene" uid="uid://bl73rv4wein64" path="res://scenes/platform/moving_platform.tscn" id="6_us4u7"]
 [ext_resource type="PackedScene" uid="uid://dfb8x2m1r12" path="res://scenes/ui/guide_trigger.tscn" id="7_guide"]
+[ext_resource type="PackedScene" uid="uid://c1tunn3l01" path="res://scenes/tunnel/tunnel.tscn" id="8_je4tg"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3gack"]
 
@@ -19,6 +20,7 @@ offset_top = -755.0
 offset_right = 1269.0
 offset_bottom = 694.0
 color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
 position = Vector2(1208, 655)
@@ -153,3 +155,138 @@ dismiss_radius = 100.0
 [node name="GuideTrigger2" parent="." instance=ExtResource("7_guide")]
 position = Vector2(230, 127)
 guide_id = "grow_shrink"
+
+[node name="Tunnel" parent="." node_paths=PackedStringArray("linked_tunnel") instance=ExtResource("8_je4tg")]
+position = Vector2(817, 619)
+linked_tunnel = NodePath("../layer2/Tunnel2")
+
+[node name="layer2" type="Node2D" parent="."]
+position = Vector2(2098, 0)
+
+[node name="ColorRect" type="ColorRect" parent="layer2"]
+offset_left = 38.0
+offset_top = -755.0
+offset_right = 1269.0
+offset_bottom = 694.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Floor" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(649.5, 700)
+platform_size = Vector2(1299, 40)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="Ceiling" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(649.5, -773)
+platform_size = Vector2(1299, 40)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="Platform6" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(409, 639)
+platform_size = Vector2(200, 20)
+
+[node name="Platform20" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(812, 650)
+platform_size = Vector2(100, 60)
+
+[node name="Platform21" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(60, 650)
+platform_size = Vector2(40, 60)
+
+[node name="Platform1" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(198, 550)
+platform_size = Vector2(200, 20)
+
+[node name="Platform5" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(266, 156)
+
+[node name="Platform22" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(196, 116)
+platform_size = Vector2(20, 60)
+
+[node name="Platform7" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(434, 216)
+
+[node name="Platform2" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(518, 479)
+
+[node name="Platform8" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(121, 81)
+platform_size = Vector2(170, 20)
+
+[node name="Platform9" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(269, 34)
+platform_size = Vector2(300, 20)
+
+[node name="Platform10" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(453, -48)
+
+[node name="Platform11" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(619, -128)
+
+[node name="Platform12" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(769, -201)
+
+[node name="Platform13" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(934, -276)
+
+[node name="Platform14" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(1095, -342)
+
+[node name="Platform15" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(945, -414)
+
+[node name="Platform16" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(788, -478)
+
+[node name="Platform17" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(625, -531)
+
+[node name="Platform18" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(406, -471)
+platform_size = Vector2(400, 20)
+
+[node name="Platform19" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(239, -641)
+
+[node name="Platform4" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(504, 305)
+platform_size = Vector2(240, 20)
+
+[node name="Platform3" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(734, 403)
+platform_size = Vector2(240, 20)
+
+[node name="WallLeft" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(20, -36)
+platform_size = Vector2(40, 1512)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="WallRight" parent="layer2" instance=ExtResource("5_platform")]
+position = Vector2(1279, -36)
+platform_size = Vector2(40, 1512)
+platform_color = Color(0.113725, 0.247059, 0.447059, 1)
+
+[node name="PatrolEnemy1" parent="layer2" instance=ExtResource("1_patrol")]
+position = Vector2(361, 396)
+
+[node name="PatrolEnemy2" parent="layer2" instance=ExtResource("1_patrol")]
+position = Vector2(744, 281)
+
+[node name="ChaseEnemy1" parent="layer2" instance=ExtResource("2_chase")]
+position = Vector2(505, 337)
+detection_radius = 130.0
+
+[node name="Portal" parent="layer2" instance=ExtResource("3_portal")]
+position = Vector2(177, -675)
+next_level = ExtResource("4_level02")
+
+[node name="MovingPlatform" parent="layer2" instance=ExtResource("6_us4u7")]
+position = Vector2(427, -584)
+move_offset = Vector2(400, 0)
+move_speed = 600.0
+move_mode = 1
+
+[node name="Tunnel2" parent="layer2" node_paths=PackedStringArray("linked_tunnel") instance=ExtResource("8_je4tg")]
+position = Vector2(817, 469)
+linked_tunnel = NodePath("../../Tunnel")
