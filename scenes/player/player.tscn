@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dwxme4uepx234" path="res://assets/sfx/SmallJump.wav" id="2_gmlin"]
 [ext_resource type="AudioStream" uid="uid://bmjnvlgssjf5x" path="res://assets/sfx/LargeJump.wav" id="4_p47bc"]
 [ext_resource type="AudioStream" uid="uid://bm3lkof54lwch" path="res://assets/sfx/XLJump.wav" id="5_75vfm"]
-[ext_resource type="AudioStream" uid="uid://b2b248n6wiyj3" path="res://assets/sfx/Spawn.wav" id="6_75vfm"]
+[ext_resource type="AudioStream" uid="uid://c7i63h5lmqjj8" path="res://assets/sfx/Spawn2.wav" id="6_0owmy"]
 [ext_resource type="AudioStream" uid="uid://doicrmkd24eld" path="res://assets/sfx/Damage.wav" id="7_0owmy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
@@ -59,7 +59,7 @@ stream = ExtResource("5_75vfm")
 [node name="Spawn" type="Node" parent="SFX"]
 
 [node name="Spawn" type="AudioStreamPlayer" parent="SFX/Spawn"]
-stream = ExtResource("6_75vfm")
+stream = ExtResource("6_0owmy")
 
 [node name="Damage" type="Node" parent="SFX"]
 
