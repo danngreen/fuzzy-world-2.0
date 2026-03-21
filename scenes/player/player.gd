@@ -68,10 +68,6 @@ func _physics_process(delta: float) -> void:
 		return
 
 	if in_tunnel:
-		velocity.x = 0
-		if not is_on_floor():
-			velocity.y = minf(velocity.y + GRAVITY * delta, MAX_FALL_SPEED)
-		move_and_slide()
 		return
 
 	# Invincibility frames

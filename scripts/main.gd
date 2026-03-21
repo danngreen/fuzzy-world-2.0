@@ -69,7 +69,7 @@ func _show_level_title() -> void:
 	label.add_theme_font_size_override("font_size", 64)
 	label.add_theme_color_override("font_color", Color.WHITE)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	label.position = Vector2(0, 300)
+	label.position = Vector2(0, 20)
 	label.size = Vector2(1280, 80)
 	label.modulate.a = 0.0
 	layer.add_child(label)
