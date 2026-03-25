@@ -112,4 +112,5 @@ func _on_body_entered(body: Node2D) -> void:
 		transition_timer = TRANSITION_DELAY
 		transition_player = body
 		transition_player.set_meta("start_pos", body.global_position)
+		body.get_node("SFX/Portal/Portal").play()
 		_spawn_burst()
