@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://teleporter01"]
+
+[ext_resource type="Script" uid="uid://dry30v7ik2v5a" path="res://scenes/teleporter/teleporter.gd" id="1_script"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
+size = Vector2(44, 16)
+
+[node name="Teleporter" type="Area2D"]
+script = ExtResource("1_script")
+
+[node name="Pad" type="ColorRect" parent="."]
+offset_left = -24.0
+offset_top = -6.0
+offset_right = 24.0
+color = Color(0.05, 0.1, 0.35, 1)
+
+[node name="Glow" type="ColorRect" parent="."]
+offset_left = -20.0
+offset_top = -4.0
+offset_right = 20.0
+offset_bottom = -2.0
+color = Color(0.2, 0.5, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("RectangleShape2D_col")
