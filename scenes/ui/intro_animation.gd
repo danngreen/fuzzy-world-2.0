@@ -141,6 +141,8 @@ func _make_hat_node(parent: Node, cx: float, by: float, initial_scale: float = 1
 # ============================================================
 
 func _phase_title() -> void:
+	$"Node2/Intro-electronic".play()
+	
 	_bg(Color.BLACK)
 	var title := _label("HATS IN SPACE", 80, Color.WHITE, 238)
 	var sub   := _label("a very true story", 30, Color(0.72, 0.72, 0.72), 346)
