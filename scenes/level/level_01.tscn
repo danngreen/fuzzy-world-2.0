@@ -288,5 +288,5 @@ move_speed = 600.0
 move_mode = 1
 
 [node name="Tunnel2" parent="layer2" node_paths=PackedStringArray("linked_tunnel") instance=ExtResource("8_je4tg")]
-position = Vector2(817, 469)
+position = Vector2(810, 620)
 linked_tunnel = NodePath("../../Tunnel")
