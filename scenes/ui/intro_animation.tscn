@@ -1,6 +1,20 @@
-[gd_scene load_steps=2 format=3 uid="uid://do0353ucho2wl"]
+[gd_scene load_steps=4 format=3 uid="uid://do0353ucho2wl"]
 
 [ext_resource type="Script" uid="uid://bqcuncny3wfti" path="res://scenes/ui/intro_animation.gd" id="1_script"]
+[ext_resource type="AudioStream" uid="uid://r2lldococnts" path="res://assets/sfx/intro.ogg" id="2_ps5np"]
+[ext_resource type="AudioStream" uid="uid://byw1qm8t8mj1u" path="res://assets/sfx/intro-electronic.wav" id="3_5v506"]
 
 [node name="IntroAnimation" type="CanvasLayer"]
 script = ExtResource("1_script")
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Intro" type="AudioStreamPlayer" parent="Node"]
+stream = ExtResource("2_ps5np")
+
+[node name="Node2" type="Node" parent="."]
+
+[node name="Intro-electronic" type="AudioStreamPlayer" parent="Node2"]
+stream = ExtResource("3_5v506")
+volume_db = -5.03
+autoplay = true
