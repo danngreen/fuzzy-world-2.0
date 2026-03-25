@@ -5,6 +5,7 @@ enum DropMode { ALWAYS, WHEN_BELOW, UNLESS_BELOW }
 @export var drop_interval: float = 2.0
 @export var drop_mode: DropMode = DropMode.ALWAYS
 @export var detection_width: float = 80.0
+@export var detection_height: float = 0.0  # 0 = unlimited
 
 var timer: float = 0.0
 var fireball_scene: PackedScene
@@ -34,7 +35,12 @@ func _physics_process(delta):
 func _is_active(player: Node) -> bool:
 	if not player:
 		return drop_mode == DropMode.ALWAYS
-	var below = absf(player.global_position.x - global_position.x) <= detection_width
+	var ppos := (player as Node2D).global_position
+	var dx := absf(ppos.x - global_position.x)
+	var dy := ppos.y - global_position.y
+	var in_range: bool = dx <= detection_width \
+		and (detection_height <= 0.0 or (dy >= 0.0 and dy <= detection_height))
+	var below := in_range
 	match drop_mode:
 		DropMode.ALWAYS:
 			return true
