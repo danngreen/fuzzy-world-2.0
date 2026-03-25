@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://player001"]
+[gd_scene load_steps=11 format=3 uid="uid://player001"]
 
 [ext_resource type="Script" uid="uid://cwoxcklog5016" path="res://scenes/player/player.gd" id="1_script"]
 [ext_resource type="AudioStream" uid="uid://cotwrvq61bq1p" path="res://assets/sfx/MedJump.wav" id="2_dovo2"]
@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://bm3lkof54lwch" path="res://assets/sfx/XLJump.wav" id="5_75vfm"]
 [ext_resource type="AudioStream" uid="uid://c7i63h5lmqjj8" path="res://assets/sfx/Spawn2.wav" id="6_0owmy"]
 [ext_resource type="AudioStream" uid="uid://doicrmkd24eld" path="res://assets/sfx/Damage.wav" id="7_0owmy"]
+[ext_resource type="AudioStream" uid="uid://ddl02dgqjfaow" path="res://assets/sfx/Portal.wav" id="8_qek5x"]
+[ext_resource type="AudioStream" uid="uid://dr1nsm3pl2mcv" path="res://assets/sfx/teleport.wav" id="9_5gtgg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_col"]
 size = Vector2(28, 48)
@@ -65,3 +67,13 @@ stream = ExtResource("6_0owmy")
 
 [node name="Damage" type="AudioStreamPlayer" parent="SFX/Damage"]
 stream = ExtResource("7_0owmy")
+
+[node name="Portal" type="Node" parent="SFX"]
+
+[node name="Portal" type="AudioStreamPlayer" parent="SFX/Portal"]
+stream = ExtResource("8_qek5x")
+
+[node name="Teleport" type="Node" parent="SFX"]
+
+[node name="Teleport" type="AudioStreamPlayer" parent="SFX/Teleport"]
+stream = ExtResource("9_5gtgg")

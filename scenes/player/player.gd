@@ -147,8 +147,8 @@ func _physics_process(delta: float) -> void:
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		if collider.is_in_group("spikes"):
-			# Only damage when landing from above, no knockback
-			if collision.get_normal().y < -0.5:
+			# Damage when hitting from above (floor spikes) or below (ceiling spikes)
+			if absf(collision.get_normal().y) > 0.5:
 				on_spikes_this_frame = true
 				if not spike_safe:
 					take_damage()
