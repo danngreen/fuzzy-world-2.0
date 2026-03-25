@@ -157,7 +157,7 @@ position = Vector2(230, 127)
 guide_id = "grow_shrink"
 
 [node name="Tunnel" parent="." node_paths=PackedStringArray("linked_tunnel") instance=ExtResource("8_je4tg")]
-position = Vector2(817, 619)
+position = Vector2(2745, -550)
 linked_tunnel = NodePath("../layer2/Tunnel2")
 
 [node name="layer2" type="Node2D" parent="."]
@@ -288,5 +288,5 @@ move_speed = 600.0
 move_mode = 1
 
 [node name="Tunnel2" parent="layer2" node_paths=PackedStringArray("linked_tunnel") instance=ExtResource("8_je4tg")]
-position = Vector2(810, 620)
+position = Vector2(222, -486)
 linked_tunnel = NodePath("../../Tunnel")

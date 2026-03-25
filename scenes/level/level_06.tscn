@@ -2,103 +2,263 @@
 
 [ext_resource type="PackedScene" uid="uid://platform001" path="res://scenes/platform/platform.tscn" id="1_secqh"]
 [ext_resource type="PackedScene" uid="uid://portal001" path="res://scenes/portal/portal.tscn" id="2_cgd5u"]
-[ext_resource type="PackedScene" uid="uid://bl73rv4wein64" path="res://scenes/platform/moving_platform.tscn" id="3_g3vos"]
-[ext_resource type="PackedScene" uid="uid://sentry001" path="res://scenes/enemies/sentry.tscn" id="4_52jvv"]
-[ext_resource type="PackedScene" uid="uid://drone001" path="res://scenes/enemies/drone_guard.tscn" id="5_c7ptt"]
+[ext_resource type="PackedScene" uid="uid://dyfgwkkrev3dg" path="res://scenes/level/level_07.tscn" id="3_c7ptt"]
+[ext_resource type="PackedScene" uid="uid://teleporter01" path="res://scenes/teleporter/teleporter.tscn" id="3_yot6d"]
+[ext_resource type="PackedScene" uid="uid://spikes001" path="res://scenes/enemies/spikes.tscn" id="4_52jvv"]
 
 [node name="Level05" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 14.0
-offset_top = -468.0
-offset_right = 1274.0
-offset_bottom = 677.0
-color = Color(0, 0, 0, 1)
+offset_left = 17.0
+offset_top = -478.0
+offset_right = 1277.0
+offset_bottom = 667.0
+color = Color(0, 0.6712, 0.136499, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
-position = Vector2(184, 598)
+position = Vector2(79, 626)
 
 [node name="Floor" parent="." instance=ExtResource("1_secqh")]
 position = Vector2(641, 680)
 platform_size = Vector2(1280, 40)
-platform_color = Color(0.480774, 0.406629, 0.0595156, 1)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
 
 [node name="Ceiling" parent="." instance=ExtResource("1_secqh")]
 position = Vector2(641, -480)
 platform_size = Vector2(1280, 40)
-platform_color = Color(0.372582, 0.319702, 0.326985, 1)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
 
 [node name="WallLeft" parent="." instance=ExtResource("1_secqh")]
 position = Vector2(0, 100)
 platform_size = Vector2(40, 1200)
-platform_color = Color(0.372582, 0.319702, 0.326985, 1)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
 
 [node name="WallRight" parent="." instance=ExtResource("1_secqh")]
 position = Vector2(1280, 100)
 platform_size = Vector2(40, 1200)
-platform_color = Color(0.372582, 0.319702, 0.326985, 1)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
 
-[node name="Sentry" parent="." instance=ExtResource("4_52jvv")]
-position = Vector2(369, -144)
-detection_radius = 150.0
+[node name="ColorRect2" type="ColorRect" parent="."]
+offset_left = 1960.0
+offset_top = -468.0
+offset_right = 3220.0
+offset_bottom = 677.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
-[node name="Sentry2" parent="." instance=ExtResource("4_52jvv")]
-position = Vector2(386, 380)
-detection_radius = 150.0
+[node name="Floor2" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(2587, 680)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
+
+[node name="Ceiling2" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(2587, -480)
+platform_size = Vector2(1280, 40)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
+
+[node name="WallLeft2" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(1946, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
+
+[node name="WallRight2" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(3226, 100)
+platform_size = Vector2(40, 1200)
+platform_color = Color(0.498878, 0.397621, 0.0647704, 1)
 
 [node name="Portal" parent="." instance=ExtResource("2_cgd5u")]
-position = Vector2(111, -388)
+position = Vector2(340, -436)
+next_level = ExtResource("3_c7ptt")
 
 [node name="Platform" parent="." instance=ExtResource("1_secqh")]
-position = Vector2(222, -277)
-platform_size = Vector2(400, 20)
+position = Vector2(2214, 580)
 
-[node name="Platform5" parent="." instance=ExtResource("1_secqh")]
-position = Vector2(222, -277)
-platform_size = Vector2(400, 20)
+[node name="Teleporter" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(265, 660)
+destination = Vector2(1150, 600)
 
-[node name="Platform3" parent="." instance=ExtResource("1_secqh")]
-position = Vector2(809, -201)
-platform_size = Vector2(900, 20)
+[node name="Teleporter10" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(217, 330)
+destination = Vector2(100, 125)
 
-[node name="Platform4" parent="." instance=ExtResource("1_secqh")]
-position = Vector2(421, -118)
-platform_size = Vector2(800, 20)
+[node name="Teleporter11" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(51, 172)
+destination = Vector2(800, 450)
+
+[node name="Teleporter12" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(52, 75)
+destination = Vector2(1100, 300)
+
+[node name="Teleporter13" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(1235, 341)
+destination = Vector2(100, 125)
+
+[node name="Teleporter14" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(1013, 341)
+destination = Vector2(1100, -400)
+
+[node name="Teleporter5" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(533, 458)
+destination = Vector2(1100, 100)
+
+[node name="Teleporter2" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(1234, 660)
+destination = Vector2(1150, 470)
+
+[node name="Teleporter3" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(1237, 509)
+destination = Vector2(1150, 460)
+
+[node name="Teleporter4" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(1234, 416)
+destination = Vector2(81, 626)
+
+[node name="Teleporter6" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(827, 268)
+destination = Vector2(150, 450)
+
+[node name="Teleporter7" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(601, 359)
+destination = Vector2(800, 450)
+
+[node name="Teleporter8" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(922, 509)
+destination = Vector2(1100, 435)
+
+[node name="Teleporter9" parent="." instance=ExtResource("3_yot6d")]
+position = Vector2(722, 509)
+destination = Vector2(200, 125)
 
 [node name="Platform2" parent="." instance=ExtResource("1_secqh")]
-position = Vector2(320, 547)
-platform_size = Vector2(400, 20)
+position = Vector2(1110, 519)
+platform_size = Vector2(300, 20)
 
-[node name="MovingPlatform" parent="." instance=ExtResource("3_g3vos")]
-position = Vector2(326, 58)
+[node name="Platform6" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(1110, 351)
+platform_size = Vector2(300, 20)
 
-[node name="MovingPlatform2" parent="." instance=ExtResource("3_g3vos")]
-position = Vector2(521, 210)
+[node name="Platform8" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(830, 187)
+platform_size = Vector2(300, 20)
 
-[node name="MovingPlatform4" parent="." instance=ExtResource("3_g3vos")]
-position = Vector2(368, 406)
-move_offset = Vector2(600, 0)
-move_mode = 2
+[node name="Platform18" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(170, 85)
+platform_size = Vector2(300, 20)
 
-[node name="MovingPlatform6" parent="." instance=ExtResource("3_g3vos")]
-position = Vector2(368, 406)
-move_offset = Vector2(600, 0)
-move_mode = 2
+[node name="Platform19" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(1112, 187)
+platform_size = Vector2(300, 20)
 
-[node name="DroneGuard" parent="." instance=ExtResource("5_c7ptt")]
-position = Vector2(479, 592)
+[node name="Platform17" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(170, 182)
+platform_size = Vector2(300, 20)
 
-[node name="DroneGuard2" parent="." instance=ExtResource("5_c7ptt")]
-position = Vector2(162, 583)
+[node name="Platform10" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(829, 278)
+platform_size = Vector2(300, 20)
 
-[node name="DroneGuard3" parent="." instance=ExtResource("5_c7ptt")]
-position = Vector2(123, 203)
+[node name="Platform23" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(602, 369)
+platform_size = Vector2(120, 20)
 
-[node name="DroneGuard6" parent="." instance=ExtResource("5_c7ptt")]
-position = Vector2(276, 225)
+[node name="Platform3" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(1091, 585)
+platform_size = Vector2(20, 150)
 
-[node name="DroneGuard4" parent="." instance=ExtResource("5_c7ptt")]
-position = Vector2(647, 252)
+[node name="Platform7" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(533, 558)
+platform_size = Vector2(20, 200)
 
-[node name="DroneGuard5" parent="." instance=ExtResource("5_c7ptt")]
-position = Vector2(526, 83)
+[node name="Platform20" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(533, 79)
+platform_size = Vector2(20, 600)
+
+[node name="Platform21" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(312, -210)
+platform_size = Vector2(20, 500)
+
+[node name="Platform4" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(1180, 426)
+
+[node name="Platform5" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(970, 437)
+platform_size = Vector2(20, 150)
+
+[node name="Platform11" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(810, 519)
+platform_size = Vector2(300, 20)
+
+[node name="Platform12" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(810, 351)
+platform_size = Vector2(300, 20)
+
+[node name="Platform13" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(670, 435)
+platform_size = Vector2(20, 150)
+
+[node name="Platform14" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(170, 507)
+platform_size = Vector2(300, 20)
+
+[node name="Platform15" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(195, 340)
+platform_size = Vector2(250, 20)
+
+[node name="Platform16" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(310, 425)
+platform_size = Vector2(20, 150)
+
+[node name="Platform9" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(970, 270)
+platform_size = Vector2(20, 150)
+
+[node name="Platform22" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(970, -233)
+platform_size = Vector2(40, 20)
+
+[node name="Platform24" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(747, -294)
+platform_size = Vector2(40, 20)
+
+[node name="Platform25" parent="." instance=ExtResource("1_secqh")]
+position = Vector2(483, -211)
+platform_size = Vector2(80, 20)
+
+[node name="Spikes" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(972, -223)
+rotation = 3.14159
+
+[node name="Spikes2" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(746, -283)
+rotation = 3.14159
+
+[node name="Spikes3" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(624, -235)
+rotation = 2.61799
+spike_count = 12
+
+[node name="Spikes4" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(821, -263)
+rotation = 3.66519
+
+[node name="Spikes9" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(894, -233)
+rotation = 3.40339
+
+[node name="Spikes5" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(1184, -135)
+rotation = 3.92699
+
+[node name="Spikes8" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(1235, -66)
+rotation = 4.18878
+spike_count = 6
+
+[node name="Spikes6" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(1121, -183)
+rotation = 3.66519
+
+[node name="Spikes7" parent="." instance=ExtResource("4_52jvv")]
+position = Vector2(1049, -213)
+rotation = 3.40339

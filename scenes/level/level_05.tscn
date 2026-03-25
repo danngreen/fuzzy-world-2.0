@@ -13,9 +13,9 @@
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 14.0
-offset_top = -468.0
+offset_top = -472.0
 offset_right = 1274.0
-offset_bottom = 677.0
+offset_bottom = 673.0
 color = Color(0, 0, 0, 1)
 
 [node name="SpawnPoint" type="Marker2D" parent="."]
@@ -71,6 +71,10 @@ platform_size = Vector2(20, 200)
 position = Vector2(671, 174)
 platform_size = Vector2(200, 20)
 
+[node name="Platform19" parent="." instance=ExtResource("1_l07hu")]
+position = Vector2(309, 37)
+platform_size = Vector2(205, 20)
+
 [node name="Platform9" parent="." instance=ExtResource("1_l07hu")]
 position = Vector2(458, 231)
 platform_size = Vector2(40, 20)
@@ -81,6 +85,16 @@ platform_size = Vector2(40, 20)
 
 [node name="Platform12" parent="." instance=ExtResource("1_l07hu")]
 position = Vector2(626, 0)
+platform_size = Vector2(40, 20)
+
+[node name="Platform20" parent="." instance=ExtResource("1_l07hu")]
+visible = false
+position = Vector2(369, 101)
+platform_size = Vector2(40, 20)
+
+[node name="Platform21" parent="." instance=ExtResource("1_l07hu")]
+visible = false
+position = Vector2(254, 101)
 platform_size = Vector2(40, 20)
 
 [node name="Platform13" parent="." instance=ExtResource("1_l07hu")]
@@ -125,6 +139,7 @@ drop_mode = 2
 position = Vector2(705, 190)
 drop_interval = 0.1
 drop_mode = 1
+detection_height = 200.0
 
 [node name="Dropper2" parent="." instance=ExtResource("6_dww84")]
 position = Vector2(454, 486)
@@ -138,6 +153,54 @@ drop_mode = 2
 
 [node name="PatrolEnemy2" parent="." instance=ExtResource("5_dg1jq")]
 position = Vector2(384, 309)
+speed = 76.0
+
+[node name="PatrolEnemy23" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(351, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy24" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(323, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy25" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(294, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy26" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(265, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy27" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(237, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy28" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(208, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy29" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(407, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy30" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(378, 15)
+rotation = -3.14159
+speed = 76.0
+
+[node name="PatrolEnemy19" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(254, 79)
+speed = 76.0
+
+[node name="PatrolEnemy20" parent="." instance=ExtResource("5_dg1jq")]
+position = Vector2(370, 79)
 speed = 76.0
 
 [node name="PatrolEnemy6" parent="." instance=ExtResource("5_dg1jq")]
@@ -198,9 +261,10 @@ position = Vector2(510, 308)
 speed = 65.0
 
 [node name="GuideTrigger" parent="." instance=ExtResource("6_v5kg2")]
-position = Vector2(376, 424)
+position = Vector2(412, 424)
 guide_id = "patrol-head-butt"
 trigger_radius = 75.0
+dismiss_radius = 100.0
 
 [node name="Spikes" parent="." instance=ExtResource("7_v5kg2")]
 position = Vector2(825, -30)
@@ -219,3 +283,30 @@ position = Vector2(1145, -30)
 
 [node name="Spikes6" parent="." instance=ExtResource("7_v5kg2")]
 position = Vector2(1225, -30)
+
+[node name="Spikes7" parent="." instance=ExtResource("7_v5kg2")]
+position = Vector2(390, 187)
+rotation = 3.14159
+
+[node name="Spikes8" parent="." instance=ExtResource("7_v5kg2")]
+position = Vector2(310, 187)
+rotation = 3.14159
+
+[node name="Spikes10" parent="." instance=ExtResource("7_v5kg2")]
+position = Vector2(310, 147)
+rotation = 3.14159
+
+[node name="Spikes11" parent="." instance=ExtResource("7_v5kg2")]
+position = Vector2(310, 165)
+
+[node name="Spikes9" parent="." instance=ExtResource("7_v5kg2")]
+position = Vector2(230, 187)
+rotation = 3.14159
+
+[node name="Platform7" parent="." instance=ExtResource("1_l07hu")]
+position = Vector2(200, 107)
+platform_size = Vector2(20, 160)
+
+[node name="Platform18" parent="." instance=ExtResource("1_l07hu")]
+position = Vector2(420, 107)
+platform_size = Vector2(20, 160)
