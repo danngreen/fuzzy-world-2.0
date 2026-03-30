@@ -16,6 +16,7 @@ func _ready() -> void:
 	player.respawning = true
 	player.get_node("CollisionShape2D").disabled = true
 	player.get_node("Sprite").visible = false
+	add_child(preload("res://scenes/ui/mobile_controls.tscn").instantiate())
 	_show_intro_animation()
 
 
@@ -70,7 +71,7 @@ func _show_level_title() -> void:
 	label.add_theme_color_override("font_color", Color.WHITE)
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.position = Vector2(0, 20)
-	label.size = Vector2(1280, 80)
+	label.size = Vector2(get_viewport().get_visible_rect().size.x, 80)
 	label.modulate.a = 0.0
 	layer.add_child(label)
 

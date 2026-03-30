@@ -202,19 +202,31 @@ func _change_size(new_scale: float) -> void:
 	# Keep feet grounded: adjust position so collision bottom stays at same Y
 	var adjustment := -(size_scale - old_scale) * BASE_COLLISION_SIZE.y / 2.0
 
-	# When growing, verify there's enough headroom.
-	# Test from the *adjusted* position (where feet are back at floor level)
-	# with a tiny upward nudge — this avoids false-positives from the floor.
+	# When growing, verify there's enough room (ceiling + walls).
+	# If blocked by a wall, nudge horizontally to make space.
+	var nudge_x := 0.0
 	if adjustment < 0.0:
 		var test_xform := global_transform.translated(Vector2(0.0, adjustment))
 		if test_move(test_xform, Vector2(0.0, -1.0)):
-			# Ceiling blocks the growth — revert everything
-			size_scale = old_scale
-			$CollisionShape2D.shape.size = BASE_COLLISION_SIZE * old_scale
-			velocity *= new_mass / old_mass
-			return
+			var max_nudge := (size_scale - old_scale) * BASE_COLLISION_SIZE.x * 0.5 + 4.0
+			var found := false
+			for px in range(1, ceili(max_nudge) + 1):
+				for dir in [1.0, -1.0]:
+					if not test_move(test_xform.translated(Vector2(dir * px, 0.0)), Vector2(0.0, -1.0)):
+						nudge_x = dir * px
+						found = true
+						break
+				if found:
+					break
+			if not found:
+				# Truly no room — revert everything
+				size_scale = old_scale
+				$CollisionShape2D.shape.size = BASE_COLLISION_SIZE * old_scale
+				velocity *= new_mass / old_mass
+				return
 
 	position.y += adjustment
+	position.x += nudge_x
 
 	# Animate sprite scale from current visual size to target
 	if size_tween and size_tween.is_valid():

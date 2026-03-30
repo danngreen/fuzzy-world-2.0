@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-const SCREEN_W := 1280.0
-const SCREEN_H := 720.0
+var SCREEN_W := 1280.0
+var SCREEN_H := 720.0
 const FONT := "res://assets/ShareTechMono-Regular.ttf"
 const BODY_COLOR := Color(0.96, 0.03, 0.0)
 
@@ -13,6 +13,9 @@ var _root: Control
 func _ready() -> void:
 	layer = 25
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	var vp := get_viewport().get_visible_rect().size
+	SCREEN_W = vp.x
+	SCREEN_H = vp.y
 	_root = Control.new()
 	_root.set_anchors_preset(Control.PRESET_FULL_RECT)
 	_root.clip_contents = true

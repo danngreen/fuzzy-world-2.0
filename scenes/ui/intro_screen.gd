@@ -5,19 +5,25 @@ var labels := []
 var arrow: Label
 var start_y := 290.0
 var spacing := 80.0
-var arrow_x := 470.0
-var text_x := 520.0
+var arrow_x: float
+var text_x: float
 var guide_enabled := false
 
 
 func _ready():
+	var vp := get_viewport().get_visible_rect().size
+	var cx := vp.x / 2.0
+	text_x = cx - 120.0
+	arrow_x = cx - 170.0
+
 	var bg = ColorRect.new()
 	bg.color = Color(0.05, 0.05, 0.1, 0.92)
-	bg.size = Vector2(1280, 720)
+	bg.size = vp
 	add_child(bg)
 
 	var menu_items = ["Play", "Guide: Off", "Replay Intro"]
 	var font = load("res://assets/ShareTechMono-Regular.ttf")
+
 	for i in menu_items.size():
 		var label = Label.new()
 		label.text = menu_items[i]
@@ -30,7 +36,7 @@ func _ready():
 		labels.append(label)
 
 	arrow = Label.new()
-	arrow.text = "\u25b6"
+	arrow.text = ">"
 	arrow.add_theme_font_size_override("font_size", 44)
 	arrow.add_theme_color_override("font_color", Color(1, 0.85, 0.2))
 	arrow.position = Vector2(arrow_x, start_y + 4)
@@ -40,9 +46,9 @@ func _ready():
 
 
 func _unhandled_input(event):
-	if event.is_action_pressed("size_up"):
+	if event.is_action_pressed("size_up") or event.is_action_pressed("move_left"):
 		_change_selection(-1)
-	elif event.is_action_pressed("size_down"):
+	elif event.is_action_pressed("size_down") or event.is_action_pressed("move_right"):
 		_change_selection(1)
 	elif event.is_action_pressed("jump"):
 		_confirm()

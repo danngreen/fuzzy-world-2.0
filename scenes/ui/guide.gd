@@ -18,7 +18,6 @@ const KEY_PRESSED_COLOR = Color(0.7, 0.6, 0.15, 1)
 const BOX_BG = Color(0.08, 0.08, 0.12, 0.92)
 const ANIM_CYCLE = 2.4
 
-
 func _physics_process(delta):
 	if not player:
 		player = get_tree().get_first_node_in_group("player")
@@ -88,10 +87,10 @@ func _show_movement_guide():
 	var panel = _make_panel(310, 130)
 
 	# Left arrow key
-	left_key_bg = _make_key(panel, 20, 12, "\u2190")
+	left_key_bg = _make_key(panel, 20, 12, "<")
 
 	# Right arrow key
-	right_key_bg = _make_key(panel, 76, 12, "\u2192")
+	right_key_bg = _make_key(panel, 76, 12, ">")
 
 	# Ground line (animation area on right side)
 	var ground = ColorRect.new()
@@ -103,7 +102,7 @@ func _show_movement_guide():
 	_make_player(panel)
 
 	# Instruction text
-	_make_text(panel, "Press \u2190 \u2192 or A D to move", 15, 90)
+	_make_text(panel, "Press left/right or A/D to move", 15, 90)
 
 	anim_update = _update_movement_anim
 
@@ -124,8 +123,8 @@ func _show_jump_guide():
 	var panel = _make_panel(310, 130)
 
 	# Actually is SP, not left_key
-	left_key_bg = _make_key(panel, 30, 40, "\u2420")
-	left_key_bg.size = Vector2(80, 26)
+	left_key_bg = _make_key(panel, 30, 40, "SP")
+	left_key_bg.size = Vector2(80, 36)
 
 	_make_ground(panel)
 	_make_player(panel)
@@ -156,15 +155,17 @@ func _update_jump_anim():
 
 func _show_growshrink_guide():
 	anim_time = 0.0
-	var panel = _make_panel(310, 130)
+	var panel = _make_panel(310, 200)
 
-	left_key_bg = _make_key(panel, 30, 15, "\u2191")
-	right_key_bg = _make_key(panel, 30, 40, "\u2193")
+	left_key_bg = _make_key(panel, 20, 5, "up")
+	right_key_bg = _make_key(panel, 20, 45, "down")
+	left_key_bg.size = Vector2(75, 36)
+	right_key_bg.size = Vector2(75, 36)
 
 	_make_ground(panel)
 	_make_player(panel)
 	fake_player.pivot_offset = Vector2(7, 24)  # scale from feet
-	_make_text(panel, "Press \u2191 \u2193 or W S to grow and shrink
+	_make_text(panel, "Press up/down or W/S to grow and shrink
 		Enemies cause more damage when small
 		but you can fit in more places!", 15, 90)
 	anim_update = _update_growshrink_anim
@@ -210,14 +211,15 @@ func _update_growshrink_anim():
 
 func _show_superjump_guide():
 	anim_time = 0.0
-	var panel = _make_panel(310, 200)
+	var panel = _make_panel(310, 220)
 
 	# Space bar key
-	left_key_bg = _make_key(panel, 15, 15, "\u2420")
-	left_key_bg.size = Vector2(80, 26)
+	left_key_bg = _make_key(panel, 5, 50, "SP")
+	left_key_bg.size = Vector2(75, 36)
 
 	# Down arrow key
-	right_key_bg = _make_key(panel, 15, 50, "\u2193")
+	right_key_bg = _make_key(panel, 90, 50, "down")
+	right_key_bg.size = Vector2(75, 36)
 
 	# Ground near bottom of panel for tall jump
 	var ground = ColorRect.new()
@@ -390,7 +392,8 @@ func _make_player(panel):
 
 func _make_panel(w: float, h: float) -> Control:
 	var panel = Control.new()
-	panel.position = Vector2(1280 - w - 16, 16)
+	var vp_w := get_viewport().get_visible_rect().size.x
+	panel.position = Vector2(vp_w - w - 16, 16)
 	add_child(panel)
 	guide_panel = panel
 

@@ -34,11 +34,12 @@ var ready_for_input := false
 
 func _ready():
 	var font = load("res://assets/ShareTechMono-Regular.ttf")
+	var vp := get_viewport().get_visible_rect().size
 
 	# Dark overlay
 	var bg = ColorRect.new()
 	bg.color = Color(0.03, 0.02, 0.05, 0.0)
-	bg.size = Vector2(1280, 720)
+	bg.size = vp
 	add_child(bg)
 
 	# GAME OVER title
@@ -49,7 +50,7 @@ func _ready():
 	title.add_theme_color_override("font_color", Color(0.9, 0.15, 0.1))
 	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title.position = Vector2(0, 200)
-	title.size = Vector2(1280, 80)
+	title.size = Vector2(vp.x, 80)
 	title.modulate.a = 0.0
 	add_child(title)
 
@@ -61,7 +62,7 @@ func _ready():
 	phrase.add_theme_color_override("font_color", Color(0.85, 0.85, 0.9))
 	phrase.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	phrase.position = Vector2(0, 320)
-	phrase.size = Vector2(1280, 40)
+	phrase.size = Vector2(vp.x, 40)
 	phrase.modulate.a = 0.0
 	add_child(phrase)
 
@@ -73,7 +74,7 @@ func _ready():
 	prompt.add_theme_color_override("font_color", Color(0.5, 0.5, 0.55))
 	prompt.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	prompt.position = Vector2(0, 500)
-	prompt.size = Vector2(1280, 30)
+	prompt.size = Vector2(vp.x, 30)
 	prompt.modulate.a = 0.0
 	add_child(prompt)
 
